@@ -11,17 +11,8 @@ public abstract class WebRequestManager : MonoBehaviour
         
     [Header("Web responses")]
     //Kunnen misschien straks allemaal de tag [HideInInspector] krijgen
-    public bool finishedResponse;
     public string webResponse;
     public string webError;
-    void Update()
-    {
-        if (finishedResponse)
-        {
-            FinishedResponse();
-            finishedResponse = false;
-        }
-    }
 
     public abstract void FinishedResponse();
 
@@ -39,7 +30,7 @@ public abstract class WebRequestManager : MonoBehaviour
             else webResponse = webRequest.downloadHandler.text;
         }
 
-        finishedResponse = true;
+        FinishedResponse();
     }
 
     /// <summary>
@@ -58,6 +49,6 @@ public abstract class WebRequestManager : MonoBehaviour
             else webResponse = webRequest.downloadHandler.text;
         }
 
-        finishedResponse = true;
+        FinishedResponse();
     }
 }
