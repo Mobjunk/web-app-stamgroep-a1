@@ -6,7 +6,12 @@ public class PhotoChanger : MonoBehaviour
 {
     public List<Material> photos = new List<Material>();
     int currentPhoto = 0;
- 
+
+    public void Start()
+    {
+        RenderSettings.skybox = photos[0];
+    }
+
     public void ChangePhoto(bool isPositive)
     {
         
