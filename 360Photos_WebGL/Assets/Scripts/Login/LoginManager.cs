@@ -31,7 +31,7 @@ public class LoginManager : WebRequestManager
 
         if (username == string.Empty || password == string.Empty)
         {
-            Debug.Log("Username or password is empty.");
+            SetErrorPanel("Username or password is empty.");
             return;
         }
 
