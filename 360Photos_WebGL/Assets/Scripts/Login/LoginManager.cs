@@ -53,8 +53,6 @@ public class LoginManager : WebRequestManager
             return;
         }
         
-        Debug.Log("webResponse: " + webResponse);
-        
         string[] outcome = webResponse.Replace("Succesful: ", "").Split(',');
         
         //string className = outcome[5];
