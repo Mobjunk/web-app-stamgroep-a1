@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class UserList : WebRequestManager
 {
     [SerializeField] private InputField searchBar;
+    [SerializeField] private int page = 0;
+    [SerializeField] private int numberOfUsers = 30;
     [SerializeField] private Transform usersParent;
     [SerializeField] private GameObject userDisplay;
 
@@ -27,6 +29,8 @@ public class UserList : WebRequestManager
 
         WWWForm form = new WWWForm();
         form.AddField("searchVector", searchVector);
+        form.AddField("numberOfUsers", numberOfUsers);
+        form.AddField("page", page);
 
         StartCoroutine(PostRequest($"{Utility.web_url}index.php?action=users", form));
     }
