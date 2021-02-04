@@ -1,6 +1,12 @@
+[System.Serializable]
 public class Class
 {
-    public string className;
-    public string permissions;
-    public string teacherId;
+    public int ID;
+    public string CLASS_NAME;
+
+    public Class(int id, string className)
+    {
+        ID = id;
+        CLASS_NAME = className;
+    }
 }

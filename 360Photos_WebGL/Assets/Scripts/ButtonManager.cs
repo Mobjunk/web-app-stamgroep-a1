@@ -17,5 +17,14 @@ public class ButtonManager : MonoBehaviour
     {
         SceneManager.LoadScene("Main scene");
     }
-    
+
+    public void Load360Graden()
+    {
+        Utility.SwitchScenes("LoggedIn", "360Ruimte");
+    }
+
+    public void CloseUserList()
+    {
+        Utility.UnloadScene("Test");
+    }
 }

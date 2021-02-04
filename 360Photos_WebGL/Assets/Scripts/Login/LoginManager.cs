@@ -41,7 +41,7 @@ public class LoginManager : WebRequestManager
         form.AddField("username", username);
         form.AddField("password", password);
         
-        StartCoroutine(PostRequest($"{Utility.web_url}index.php?action=login", form));
+        StartCoroutine(PostRequest($"{Utility.action_url}login", form));
     }
 
     public override void FinishedResponse()

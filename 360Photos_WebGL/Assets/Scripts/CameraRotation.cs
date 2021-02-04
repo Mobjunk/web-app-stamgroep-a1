@@ -4,17 +4,10 @@ using UnityEngine;
 using System;
 public class CameraRotation : MonoBehaviour
 {
-    Camera mainCamera;
+    [SerializeField] Camera mainCamera;
     float posX;
     float posY;
     [SerializeField, Range(4, 10)] int rotationSpeed;
-    
-    void Start()
-    {
-
-        mainCamera = Camera.main;
-        
-    }
 
     void FixedUpdate()
     {

@@ -1,8 +1,8 @@
 using System.Linq;
 
-public class RoleManager : JsonHandler<Role>
+public class ClassManager : JsonHandler<Class>
 {
-    public static RoleManager instance;
+    public static ClassManager instance;
     
     protected override string GetFileName()
     {
@@ -16,7 +16,7 @@ public class RoleManager : JsonHandler<Role>
 
     protected override string GetLink()
     {
-        return $"{Utility.action_url}roles";
+        return $"{Utility.action_url}classes";
     }
 
     protected override string GetInsertLink()
@@ -32,8 +32,8 @@ public class RoleManager : JsonHandler<Role>
 
     public override void Update() { }
 
-    public Role GetRoleByName(string roleName)
+    public Class GetClassByName(string roleName)
     {
-        return entries.FirstOrDefault(role => role.ROLE_NAME.Equals(roleName));
+        return entries.FirstOrDefault(c => c.CLASS_NAME.Equals(roleName));
     }
 }

@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 121392425}
   - component: {fileID: 121392424}
-  - component: {fileID: 121392423}
   - component: {fileID: 121392426}
   m_Layer: 0
   m_Name: Main Camera
@@ -142,14 +141,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &121392423
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 121392422}
-  m_Enabled: 1
 --- !u!20 &121392424
 Camera:
   m_ObjectHideFlags: 0
@@ -219,6 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841ff982b68f09b428fa5b10ec1937f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 121392424}
   rotationSpeed: 10
 --- !u!1 &834806920
 GameObject:
