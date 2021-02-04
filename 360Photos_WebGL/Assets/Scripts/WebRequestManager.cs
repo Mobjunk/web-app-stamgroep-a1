@@ -14,6 +14,12 @@ public abstract class WebRequestManager : MonoBehaviour
     public string webResponse;
     public string webError;
 
+    public virtual void SetupResponse()
+    {
+        webResponse = string.Empty;
+        webError = string.Empty;
+    }
+    
     public abstract void FinishedResponse();
 
     /// <summary>
