@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class UserList : WebRequestManager
 {
     [SerializeField] private InputField searchBar;
+    [SerializeField] private Transform usersParent;
+    [SerializeField] private GameObject userDisplay;
 
     // Start is called before the first frame update
     void Start()
@@ -54,11 +56,28 @@ public class UserList : WebRequestManager
 
         Debug.Log("webResponse: " + webResponse);
 
-        string[] outcome = webResponse.Replace("Succesful: ", "").Split(',');
+        string[] users = webResponse.Split(';');
 
-        //string className = outcome[5];
-        //string roleName = outcome[6];
+        foreach (Transform child in usersParent)
+        {
+            Destroy(child.gameObject);
+        }
 
-        //gameManger.CurrentUser = new Users(int.Parse(outcome[0]), outcome[1], outcome[2], outcome[3], outcome[4]);
+        foreach (var user in users)
+        {
+            if (user != "")
+            {
+                string[] userInfo = user.Replace("User: ", "").Split(',');
+
+                GameObject placedUserDisplay = Instantiate(userDisplay, usersParent);
+
+                placedUserDisplay.name = "User ID#" + userInfo[0];
+                Transform information = placedUserDisplay.transform.GetChild(0);
+                information.Find("Name").GetComponent<Text>().text = userInfo[1];
+                information.Find("Email").GetComponent<Text>().text = userInfo[2];
+                information.Find("Role").GetComponent<Text>().text = userInfo[6];
+                information.Find("Classes").GetComponent<Text>().text = userInfo[5];
+            }
+        }
     }
 }
