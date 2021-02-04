@@ -1,14 +1,28 @@
+using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LoginManager : WebRequestManager
 {
     [Header("Login UI")]
-    [SerializeField] TMP_InputField inputUsername;
-    [SerializeField] TMP_InputField inputPassword;
+    [SerializeField] private TMP_InputField inputUsername;
+    [SerializeField] private TMP_InputField inputPassword;
+    [SerializeField] private GameObject errorPanel;
+    [SerializeField] private TMP_Text errorText;
+
+    public delegate void OnSuccesfulLogin();
+
+    public OnSuccesfulLogin onSuccesfulLogin;
+
+    void SuccesfulLogin()
+    {
+        onSuccesfulLogin?.Invoke();
+    }
 
     public void LoginRequest()
     {
+        errorPanel.SetActive(false);
         webResponse = string.Empty;
         webError = string.Empty;
 
@@ -35,29 +49,33 @@ public class LoginManager : WebRequestManager
         //Check if the user isnt already logged in
         if (gameManger.CurrentUser != null)
         {
-            Debug.LogError("Trying to login when there is already someone logged in");
+            SetErrorPanel("Trying to login when there is already someone logged in");
             return;
         }
         
         //Handles checking if the web error isnt empty
         if (!webError.Equals(string.Empty))
         {
-            Debug.LogError($"Web error: {webError}");
+            SetErrorPanel(webError);
             return;
         }
         
         //Checks if the web response contained unsuccessful
         if (webResponse.Contains("Unsuccessful"))
         {
-            Debug.LogError("Unsuccessful login do something!");
+            SetErrorPanel("Unsuccessful login: username or password incorrect!");
             return;
         }
         
-        string[] outcome = webResponse.Replace("Succesful: ", "").Split(',');
-        
-        //string className = outcome[5];
-        //string roleName = outcome[6];
+        string[] outcome = webResponse.Replace("Successful: ", "").Split(',');
 
-        gameManger.CurrentUser = new Users(int.Parse(outcome[0]), outcome[1], outcome[2], outcome[3], outcome[4]);
+        gameManger.CurrentUser = new Users(int.Parse(outcome[0]), outcome[1], outcome[2], outcome[3], outcome[4], outcome[6]);
+        Utility.SwitchScenes("Login scene", "LoggedIn");
+    }
+
+    public void SetErrorPanel(string text)
+    {
+        errorPanel.SetActive(true);
+        errorText.text = text;
     }
 }
