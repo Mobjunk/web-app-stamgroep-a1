@@ -8,14 +8,16 @@ public class CameraRotation : MonoBehaviour
     float posX;
     float posY;
     [SerializeField, Range(4, 10)] int rotationSpeed;
+    
 
     void FixedUpdate()
     {
+        
         if (Input.GetMouseButton(0))
         {
             posX += Input.GetAxis("Mouse X") * rotationSpeed;
-
             posY += Input.GetAxis("Mouse Y") * rotationSpeed;
+            posY = Mathf.Clamp(posY, -80f, 80f);
             mainCamera.transform.rotation = Quaternion.Euler(-posY, posX, 0);
             //euler zorgt dat je de graden gebruikt bij rotatie
             ChangeCursorState(false);
