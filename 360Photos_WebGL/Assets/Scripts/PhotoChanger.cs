@@ -14,18 +14,14 @@ public class PhotoChanger : MonoBehaviour
 
     public void ChangePhoto(bool isPositive)
     {
-        
         if (isPositive && currentPhoto < photos.Count -1)
         {
             currentPhoto++;
         }
         else if(!isPositive && currentPhoto > 0)
         {
-            currentPhoto--;
-            
+            currentPhoto--;   
         }
-        print(currentPhoto);
         RenderSettings.skybox = photos[currentPhoto];
-
     }
 }
