@@ -41,6 +41,13 @@ public class AddUserSystem : WebRequestManager
 
     public override void FinishedResponse()
     {
+        //Handles checking if the web error isnt empty
+        if (!webError.Equals(string.Empty))
+        {
+            Debug.LogError(webError);
+            return;
+        }
+
         if (webResponse == "") return;
 
         classes = JsonHelper.FromJson<Class>(webResponse);
