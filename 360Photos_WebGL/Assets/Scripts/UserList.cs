@@ -10,7 +10,6 @@ public class UserList : WebRequestManager
     [SerializeField] private int numberOfUsers = 30;
     [SerializeField] private Transform usersParent;
     [SerializeField] private GameObject userDisplay;
-    [SerializeField] private RemoveUserSystem removeUserSystem;
 
     public static UserList instance;
 
@@ -92,7 +91,15 @@ public class UserList : WebRequestManager
                 information.Find("Classes").GetComponent<Text>().text = userInfo[5];
 
                 Transform buttons = placedUserDisplay.transform.GetChild(1);
-                buttons.Find("Delete").GetComponent<Button>().onClick.AddListener(() => removeUserSystem.RemoveUser(userInfo[0]));
+                buttons.Find("Delete").GetComponent<Button>().onClick.AddListener(() => RemoveUserSystem.instance.RemoveUser(userInfo[0]));
+
+                bool blockState;
+                if (userInfo[7] == "0") blockState = false;
+                else blockState = true;
+                Button blockButton = buttons.Find("Block").GetComponent<Button>();
+                if (blockState) blockButton.GetComponentInChildren<Text>().text = "Deblockeren";
+                else blockButton.GetComponentInChildren<Text>().text = "Blockeren";
+                blockButton.onClick.AddListener(() => BlockUserSystem.instance.BlockUser(userInfo[0], (!blockState).ToString()));
             }
         }
     }

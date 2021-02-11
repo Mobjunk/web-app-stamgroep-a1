@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RemoveUserSystem : WebRequestManager
+public class BlockUserSystem : WebRequestManager
 {
-    public static RemoveUserSystem instance;
+    public static BlockUserSystem instance;
 
     private void Awake()
     {
@@ -12,11 +12,12 @@ public class RemoveUserSystem : WebRequestManager
         else instance = this;
     }
 
-    public void RemoveUser(string id)
+    public void BlockUser(string id, string blockedValue)
     {
         WWWForm form = new WWWForm();
         form.AddField("id", id);
-        StartCoroutine(PostRequest($"{Utility.action_url}deleteUser", form));
+        form.AddField("block", blockedValue);
+        StartCoroutine(PostRequest($"{Utility.action_url}blockUser", form));
     }
 
     public override void FinishedResponse()
