@@ -10,6 +10,15 @@ public class UserList : WebRequestManager
     [SerializeField] private int numberOfUsers = 30;
     [SerializeField] private Transform usersParent;
     [SerializeField] private GameObject userDisplay;
+    [SerializeField] private RemoveUserSystem removeUserSystem;
+
+    public static UserList instance;
+
+    private void Awake()
+    {
+        if (instance) Destroy(this);
+        else instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -81,6 +90,9 @@ public class UserList : WebRequestManager
                 information.Find("Email").GetComponent<Text>().text = userInfo[2];
                 information.Find("Role").GetComponent<Text>().text = userInfo[6];
                 information.Find("Classes").GetComponent<Text>().text = userInfo[5];
+
+                Transform buttons = placedUserDisplay.transform.GetChild(1);
+                buttons.Find("Delete").GetComponent<Button>().onClick.AddListener(() => removeUserSystem.RemoveUser(userInfo[0]));
             }
         }
     }
