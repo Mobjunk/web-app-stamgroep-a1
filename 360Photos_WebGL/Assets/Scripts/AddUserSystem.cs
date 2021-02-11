@@ -21,12 +21,24 @@ public class AddUserSystem : WebRequestManager
     {
         if(addUserPanel) addUserPanel.SetActive(true);
 
+        userNameInput.text = "";
+        firstNameInput.text = "";
+        lastNameInput.text = "";
+        emailInput.text = "";
+        passwordInput.text = "";
+
         StartCoroutine(GetRequest($"{Utility.action_url}classes"));
         StartCoroutine(GetRequest($"{Utility.action_url}roles"));
     }
 
     public void CreateUser()
     {
+        if (userNameInput.text == "") return;
+        if (passwordInput.text == "") return;
+        if (emailInput.text == "") return;
+        if (firstNameInput.text == "") return;
+        if (lastNameInput.text == "") return;
+
         WWWForm form = new WWWForm();
         form.AddField("username", userNameInput.text);
         form.AddField("password", passwordInput.text);
@@ -37,6 +49,7 @@ public class AddUserSystem : WebRequestManager
         form.AddField("role", roleDropdown.itemText.text);
 
         StartCoroutine(PostRequest($"{Utility.action_url}createUser", form));
+        if (addUserPanel) addUserPanel.SetActive(false);
     }
 
     public override void FinishedResponse()
@@ -53,30 +66,30 @@ public class AddUserSystem : WebRequestManager
         classes = JsonHelper.FromJson<Class>(webResponse);
         roles = JsonHelper.FromJson<Role>(webResponse);
 
-        List<Dropdown.OptionData> options = new List<Dropdown.OptionData>();
+        List<Dropdown.OptionData> classOptions = new List<Dropdown.OptionData> { new Dropdown.OptionData("None") };
         foreach (var klas in classes)
         {
             if (klas.CLASS_NAME != null)
             {
-                options.Add(new Dropdown.OptionData(klas.CLASS_NAME));
+                classOptions.Add(new Dropdown.OptionData(klas.CLASS_NAME));
             }
         }
-        if (options.Count > 0)
+        if (classOptions.Count > 1)
         {
-            classDropdown.options = options;
+            classDropdown.options = classOptions;
         }
 
-        options.Clear();
+        List<Dropdown.OptionData> roleOptions = new List<Dropdown.OptionData>();
         foreach (var rol in roles)
         {
             if (rol.ROLE_NAME != null)
             {
-                options.Add(new Dropdown.OptionData(rol.ROLE_NAME));
+                roleOptions.Add(new Dropdown.OptionData(rol.ROLE_NAME));
             }
         }
-        if (options.Count > 0)
+        if (roleOptions.Count > 0)
         {
-            roleDropdown.options = options;
+            roleDropdown.options = roleOptions;
         }
     }
 }
