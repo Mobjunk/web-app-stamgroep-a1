@@ -15,8 +15,8 @@ EditorBuildSettings:
     path: Assets/Scenes/LoggedIn.unity
     guid: 5d72bdf70faeab94882fe3d78cb505d2
   - enabled: 1
-    path: Assets/Scenes/Test.unity
-    guid: 6657d59b53e9f094696599e259f370cb
+    path: Assets/Scenes/AdminPanelScene.unity
+    guid: 26160e7595e881a41bccf151db3ddf5f
   - enabled: 1
     path: Assets/Scenes/360Ruimte.unity
     guid: 70ebb22f58cbb2a4f9a4ff6ef3c7c78f

@@ -10,7 +10,7 @@ public class ButtonManager : MonoBehaviour
     
     public void LoadUsers()
     {
-        Utility.AddSceneIfNotLoaded("Test");
+        Utility.AddSceneIfNotLoaded("AdminPanelScene");
     }
 
     public void Logout()
@@ -25,6 +25,6 @@ public class ButtonManager : MonoBehaviour
 
     public void CloseUserList()
     {
-        Utility.UnloadScene("Test");
+        Utility.UnloadScene("AdminPanelScene");
     }
 }

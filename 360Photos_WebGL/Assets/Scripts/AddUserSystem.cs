@@ -26,6 +26,8 @@ public class AddUserSystem : WebRequestManager
         lastNameInput.text = "";
         emailInput.text = "";
         passwordInput.text = "";
+        roleDropdown.value = 0;
+        classDropdown.value = 0;
 
         StartCoroutine(GetRequest($"{Utility.action_url}classes"));
         StartCoroutine(GetRequest($"{Utility.action_url}roles"));
