@@ -45,8 +45,8 @@ public class AddUserSystem : WebRequestManager
         form.AddField("firstName", firstNameInput.text);
         form.AddField("lastName", lastNameInput.text);
         form.AddField("email", emailInput.text);
-        form.AddField("class", classDropdown.itemText.text);
-        form.AddField("role", roleDropdown.itemText.text);
+        form.AddField("class", classDropdown.options[classDropdown.value].text);
+        form.AddField("role", roleDropdown.options[roleDropdown.value].text);
 
         StartCoroutine(PostRequest($"{Utility.action_url}createUser", form));
         if (addUserPanel) addUserPanel.SetActive(false);
@@ -61,7 +61,11 @@ public class AddUserSystem : WebRequestManager
             return;
         }
 
-        if (webResponse == "") return;
+        if (webResponse == "")
+        {
+            UserList.instance.UserListRequest();
+            return;
+        }
 
         classes = JsonHelper.FromJson<Class>(webResponse);
         roles = JsonHelper.FromJson<Role>(webResponse);
