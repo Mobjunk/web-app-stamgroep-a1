@@ -46,11 +46,11 @@ public class UserList : WebRequestManager
     public override void FinishedResponse()
     {
         //Check if the user is logged in
-        //if (gameManger.CurrentUser == null)
-        //{
-        //    Debug.LogError("Trying to get users while not logged in!");
-        //    return;
-        //}
+        if (gameManager.CurrentUser == null)
+        {
+            Debug.LogError("Trying to get users while not logged in!");
+            return;
+        }
 
         //Handles checking if the web error isnt empty
         if (!webError.Equals(string.Empty))
@@ -81,14 +81,30 @@ public class UserList : WebRequestManager
             {
                 string[] userInfo = user.Replace("User: ", "").Split(',');
 
+                Users userClass = new Users(int.Parse(userInfo[0]), userInfo[1], userInfo[2], userInfo[3], userInfo[4], userInfo[6], userInfo[5]);
                 GameObject placedUserDisplay = Instantiate(userDisplay, usersParent);
 
-                placedUserDisplay.name = "User ID#" + userInfo[0];
+                placedUserDisplay.name = "User ID#" + userClass.id;
                 Transform information = placedUserDisplay.transform.GetChild(0);
-                information.Find("Name").GetComponent<Text>().text = userInfo[1];
-                information.Find("Email").GetComponent<Text>().text = userInfo[2];
-                information.Find("Role").GetComponent<Text>().text = userInfo[6];
-                information.Find("Classes").GetComponent<Text>().text = userInfo[5];
+                information.Find("Name").GetComponent<Text>().text = userClass.username;
+                information.Find("Email").GetComponent<Text>().text = userClass.email;
+                string role = "";
+                foreach (var item in userClass.roles)
+                {
+                    role += item.ROLE_NAME;
+                    role += ", ";
+                }
+                role = role.Remove(role.Length - 2,2);
+                information.Find("Role").GetComponent<Text>().text = role;
+
+                string classes = "";
+                foreach (var item in userClass.classes)
+                {
+                    classes += item.CLASS_NAME;
+                    classes += ", ";
+                }
+                if(classes.Length > 2) classes = classes.Remove(classes.Length - 2,2);
+                information.Find("Classes").GetComponent<Text>().text = classes;
 
                 Transform buttons = placedUserDisplay.transform.GetChild(1);
                 if (gameManager.CurrentUser.username == userInfo[1]) buttons.Find("Delete").gameObject.SetActive(false);
@@ -101,10 +117,12 @@ public class UserList : WebRequestManager
                     if (userInfo[7] == "0") blockState = false;
                     else blockState = true;
                     Button blockButton = buttons.Find("Block").GetComponent<Button>();
-                    if (blockState) blockButton.GetComponentInChildren<Text>().text = "Deblockeren";
-                    else blockButton.GetComponentInChildren<Text>().text = "Blockeren";
+                    if (blockState) blockButton.GetComponentInChildren<Text>().text = "Deblokkeren";
+                    else blockButton.GetComponentInChildren<Text>().text = "Blokkeren";
                     blockButton.onClick.AddListener(() => BlockUserSystem.instance.BlockUser(userInfo[0], (!blockState).ToString()));
                 }
+
+                buttons.Find("Edit").GetComponent<Button>().onClick.AddListener(() => EditUserSystem.instance.OpenEditUserPanel(userClass));
             }
         }
     }

@@ -10,17 +10,21 @@ public class Users
     public string email;
     public string firstName;
     public string lastName;
+    public string password;
     public Class currentClass;
     public List<Role> roles = new List<Role>();
+    public List<Class> classes = new List<Class>();
 
-    public Users(int id, string username, string email, string firstName, string lastName, string currentRoles)
+    public Users(int id, string username, string email, string firstName, string lastName, string currentRoles, string currentClasses, string password = "")
     {
         this.id = id;
         this.username = username;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.password = password;
         AddRoles(currentRoles);
+        AddClass(currentClasses);
     }
 
     private void AddRoles(string currentRoles)
@@ -31,6 +35,17 @@ public class Users
             Role role = RoleManager.instance.GetRoleByName(roleName);
             if (role == null) continue;
             roles.Add(role);
+        }
+    }
+
+    private void AddClass(string currentClass)
+    {
+        string[] splitRoles = currentClass.Split(':');
+        foreach (string roleName in splitRoles)
+        {
+            Class @class = ClassManager.instance.GetClassByName(roleName);
+            if (@class == null) continue;
+            classes.Add(@class);
         }
     }
 

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AddUserSystem : WebRequestManager
+public class EditUserSystem : WebRequestManager
 {
-    [SerializeField] private GameObject addUserPanel;
+    [SerializeField] private GameObject editUserPanel;
     [SerializeField] private InputField userNameInput;
     [SerializeField] private InputField firstNameInput;
     [SerializeField] private InputField lastNameInput;
@@ -17,45 +17,53 @@ public class AddUserSystem : WebRequestManager
 
     private Class[] classes;
     private Role[] roles;
+    public static EditUserSystem instance;
+    private Users latestUser;
 
-    public void OpenAddUserPanel()
+    private void Awake()
     {
-        if(addUserPanel) addUserPanel.SetActive(true);
+        if (instance) Destroy(this);
+        else instance = this;
+    }
+
+    public void OpenEditUserPanel(Users user)
+    {
+        latestUser = user;
+        if(editUserPanel) editUserPanel.SetActive(true);
 
         StartCoroutine(GetRequest($"{Utility.action_url}classes"));
         StartCoroutine(GetRequest($"{Utility.action_url}roles"));
 
-        userNameInput.text = "";
-        firstNameInput.text = "";
-        lastNameInput.text = "";
-        emailInput.text = "";
-        passwordInput.transform.parent.gameObject.SetActive(true);
-        passwordInput.text = "";
-        roleDropdown.value = 0;
-        classDropdown.value = 0;
+        userNameInput.text = user.username;
+        firstNameInput.text = user.firstName;
+        lastNameInput.text = user.lastName;
+        emailInput.text = user.email;
+        passwordInput.transform.parent.gameObject.SetActive(false);
+        roleDropdown.value = user.roles[0].ID - 1;
+        if (user.classes.Count > 0) classDropdown.value = user.classes[0].ID;
+        else classDropdown.value = 0;
         doneButton.onClick.RemoveAllListeners();
-        doneButton.onClick.AddListener(() => CreateUser());
+        doneButton.onClick.AddListener(() => EditUser());
     }
 
-    public void CreateUser()
+    public void EditUser()
     {
         if (userNameInput.text == "") return;
-        if (passwordInput.text == "") return;
         if (emailInput.text == "") return;
         if (firstNameInput.text == "") return;
         if (lastNameInput.text == "") return;
 
         WWWForm form = new WWWForm();
+        form.AddField("id", latestUser.id);
         form.AddField("username", userNameInput.text);
-        form.AddField("password", passwordInput.text);
         form.AddField("firstName", firstNameInput.text);
         form.AddField("lastName", lastNameInput.text);
         form.AddField("email", emailInput.text);
         if(classDropdown.value != 0) form.AddField("class", classDropdown.options[classDropdown.value].text);
         form.AddField("role", roleDropdown.options[roleDropdown.value].text);
 
-        StartCoroutine(PostRequest($"{Utility.action_url}createUser", form));
-        if (addUserPanel) addUserPanel.SetActive(false);
+        StartCoroutine(PostRequest($"{Utility.action_url}editUser", form));
+        if (editUserPanel) editUserPanel.SetActive(false);
     }
 
     public override void FinishedResponse()
@@ -67,9 +75,14 @@ public class AddUserSystem : WebRequestManager
             return;
         }
 
-        if (webResponse == "Succesfully added a new user!")
+        if (webResponse == "Succesfully edited user!")
         {
             UserList.instance.UserListRequest();
+            return;
+        }
+        else if (webResponse.Contains("error"))
+        {
+            Debug.LogError(webResponse);
             return;
         }
 

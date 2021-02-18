@@ -69,7 +69,7 @@ public class LoginManager : WebRequestManager
         
         string[] outcome = webResponse.Replace("Successful: ", "").Split(',');
 
-        gameManager.CurrentUser = new Users(int.Parse(outcome[0]), outcome[1], outcome[2], outcome[3], outcome[4], outcome[6]);
+        gameManager.CurrentUser = new Users(int.Parse(outcome[0]), outcome[1], outcome[2], outcome[3], outcome[4], outcome[6], outcome[5]);
         Utility.SwitchScenes("Login scene", "LoggedIn");
     }
 
