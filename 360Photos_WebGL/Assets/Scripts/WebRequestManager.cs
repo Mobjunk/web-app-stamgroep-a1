@@ -7,7 +7,7 @@ public abstract class WebRequestManager : MonoBehaviour
     /// <summary>
     /// Reference to the game manager script
     /// </summary>
-    public GameManager gameManger => GameManager.Instance();
+    public GameManager gameManager => GameManager.Instance();
         
     [Header("Web responses")]
     //Kunnen misschien straks allemaal de tag [HideInInspector] krijgen

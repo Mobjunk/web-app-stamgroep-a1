@@ -47,7 +47,7 @@ public class AddUserSystem : WebRequestManager
         form.AddField("firstName", firstNameInput.text);
         form.AddField("lastName", lastNameInput.text);
         form.AddField("email", emailInput.text);
-        form.AddField("class", classDropdown.options[classDropdown.value].text);
+        if(classDropdown.value != 0) form.AddField("class", classDropdown.options[classDropdown.value].text);
         form.AddField("role", roleDropdown.options[roleDropdown.value].text);
 
         StartCoroutine(PostRequest($"{Utility.action_url}createUser", form));
@@ -63,7 +63,7 @@ public class AddUserSystem : WebRequestManager
             return;
         }
 
-        if (webResponse == "")
+        if (webResponse == "Succesfully added a new user!")
         {
             UserList.instance.UserListRequest();
             return;

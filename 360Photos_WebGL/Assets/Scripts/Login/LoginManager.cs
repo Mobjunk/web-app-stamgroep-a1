@@ -47,7 +47,7 @@ public class LoginManager : WebRequestManager
     public override void FinishedResponse()
     {
         //Check if the user isnt already logged in
-        if (gameManger.CurrentUser != null)
+        if (gameManager.CurrentUser != null)
         {
             SetErrorPanel("Trying to login when there is already someone logged in");
             return;
@@ -63,13 +63,13 @@ public class LoginManager : WebRequestManager
         //Checks if the web response contained unsuccessful
         if (webResponse.Contains("Unsuccessful"))
         {
-            SetErrorPanel("Unsuccessful login: username or password incorrect!");
+            SetErrorPanel(webResponse);
             return;
         }
         
         string[] outcome = webResponse.Replace("Successful: ", "").Split(',');
 
-        gameManger.CurrentUser = new Users(int.Parse(outcome[0]), outcome[1], outcome[2], outcome[3], outcome[4], outcome[6]);
+        gameManager.CurrentUser = new Users(int.Parse(outcome[0]), outcome[1], outcome[2], outcome[3], outcome[4], outcome[6]);
         Utility.SwitchScenes("Login scene", "LoggedIn");
     }
 

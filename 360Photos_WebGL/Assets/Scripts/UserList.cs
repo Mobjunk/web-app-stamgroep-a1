@@ -91,15 +91,20 @@ public class UserList : WebRequestManager
                 information.Find("Classes").GetComponent<Text>().text = userInfo[5];
 
                 Transform buttons = placedUserDisplay.transform.GetChild(1);
-                buttons.Find("Delete").GetComponent<Button>().onClick.AddListener(() => RemoveUserSystem.instance.RemoveUser(userInfo[0]));
+                if (gameManager.CurrentUser.username == userInfo[1]) buttons.Find("Delete").gameObject.SetActive(false);
+                else buttons.Find("Delete").GetComponent<Button>().onClick.AddListener(() => RemoveUserSystem.instance.RemoveUser(userInfo[0]));
 
-                bool blockState;
-                if (userInfo[7] == "0") blockState = false;
-                else blockState = true;
-                Button blockButton = buttons.Find("Block").GetComponent<Button>();
-                if (blockState) blockButton.GetComponentInChildren<Text>().text = "Deblockeren";
-                else blockButton.GetComponentInChildren<Text>().text = "Blockeren";
-                blockButton.onClick.AddListener(() => BlockUserSystem.instance.BlockUser(userInfo[0], (!blockState).ToString()));
+                if (gameManager.CurrentUser.username == userInfo[1]) buttons.Find("Block").gameObject.SetActive(false);
+                else
+                {
+                    bool blockState;
+                    if (userInfo[7] == "0") blockState = false;
+                    else blockState = true;
+                    Button blockButton = buttons.Find("Block").GetComponent<Button>();
+                    if (blockState) blockButton.GetComponentInChildren<Text>().text = "Deblockeren";
+                    else blockButton.GetComponentInChildren<Text>().text = "Blockeren";
+                    blockButton.onClick.AddListener(() => BlockUserSystem.instance.BlockUser(userInfo[0], (!blockState).ToString()));
+                }
             }
         }
     }
