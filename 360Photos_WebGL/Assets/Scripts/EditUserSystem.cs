@@ -11,8 +11,8 @@ public class EditUserSystem : WebRequestManager
     [SerializeField] private InputField lastNameInput;
     [SerializeField] private InputField emailInput;
     [SerializeField] private InputField passwordInput;
-    [SerializeField] private Dropdown roleDropdown;
-    [SerializeField] private Dropdown classDropdown;
+    [SerializeField] private DropdownMulti roleDropdown;
+    [SerializeField] private DropdownMulti classDropdown;
     [SerializeField] private Button doneButton;
 
     private Class[] classes;
@@ -39,9 +39,18 @@ public class EditUserSystem : WebRequestManager
         lastNameInput.text = user.lastName;
         emailInput.text = user.email;
         passwordInput.transform.parent.gameObject.SetActive(false);
-        roleDropdown.value = user.roles[0].ID - 1;
-        if (user.classes.Count > 0) classDropdown.value = user.classes[0].ID;
-        else classDropdown.value = 0;
+        List<int> roles = new List<int>();
+        foreach (var role in user.roles)
+        {
+            roles.Add(role.ID - 1);
+        }
+        roleDropdown.value = roles.ToArray();
+        List<int> classes = new List<int>();
+        foreach (var klas in user.classes)
+        {
+            classes.Add(klas.ID - 1);
+        }
+        classDropdown.value = classes.ToArray();
         doneButton.onClick.RemoveAllListeners();
         doneButton.onClick.AddListener(() => EditUser());
     }
@@ -59,8 +68,19 @@ public class EditUserSystem : WebRequestManager
         form.AddField("firstName", firstNameInput.text);
         form.AddField("lastName", lastNameInput.text);
         form.AddField("email", emailInput.text);
-        if(classDropdown.value != 0) form.AddField("class", classDropdown.options[classDropdown.value].text);
-        form.AddField("role", roleDropdown.options[roleDropdown.value].text);
+        string classes = "";
+        foreach (var value in classDropdown.value)
+        {
+            classes += classDropdown.options[value].text + ":";
+        }
+        classes = classes.Remove(classes.Length - 1);
+        form.AddField("class", classes);
+        string roles = "";
+        foreach (var value in roleDropdown.value)
+        {
+            roles += roleDropdown.options[value].text + ":";
+        }
+        roles = roles.Remove(roles.Length - 1);
 
         StartCoroutine(PostRequest($"{Utility.action_url}editUser", form));
         if (editUserPanel) editUserPanel.SetActive(false);
@@ -89,12 +109,12 @@ public class EditUserSystem : WebRequestManager
         classes = JsonHelper.FromJson<Class>(webResponse);
         roles = JsonHelper.FromJson<Role>(webResponse);
 
-        List<Dropdown.OptionData> classOptions = new List<Dropdown.OptionData> { new Dropdown.OptionData("None") };
+        List<DropdownMulti.OptionData> classOptions = new List<DropdownMulti.OptionData>();
         foreach (var klas in classes)
         {
             if (klas.CLASS_NAME != null)
             {
-                classOptions.Add(new Dropdown.OptionData(klas.CLASS_NAME));
+                classOptions.Add(new DropdownMulti.OptionData(klas.CLASS_NAME));
             }
         }
         if (classOptions.Count > 1)
@@ -102,12 +122,12 @@ public class EditUserSystem : WebRequestManager
             classDropdown.options = classOptions;
         }
 
-        List<Dropdown.OptionData> roleOptions = new List<Dropdown.OptionData>();
+        List<DropdownMulti.OptionData> roleOptions = new List<DropdownMulti.OptionData>();
         foreach (var rol in roles)
         {
             if (rol.ROLE_NAME != null)
             {
-                roleOptions.Add(new Dropdown.OptionData(rol.ROLE_NAME));
+                roleOptions.Add(new DropdownMulti.OptionData(rol.ROLE_NAME));
             }
         }
         if (roleOptions.Count > 0)

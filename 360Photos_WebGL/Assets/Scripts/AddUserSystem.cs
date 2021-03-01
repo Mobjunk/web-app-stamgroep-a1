@@ -11,8 +11,8 @@ public class AddUserSystem : WebRequestManager
     [SerializeField] private InputField lastNameInput;
     [SerializeField] private InputField emailInput;
     [SerializeField] private InputField passwordInput;
-    [SerializeField] private Dropdown roleDropdown;
-    [SerializeField] private Dropdown classDropdown;
+    [SerializeField] private DropdownMulti roleDropdown;
+    [SerializeField] private DropdownMulti classDropdown;
     [SerializeField] private Button doneButton;
 
     private Class[] classes;
@@ -31,8 +31,8 @@ public class AddUserSystem : WebRequestManager
         emailInput.text = "";
         passwordInput.transform.parent.gameObject.SetActive(true);
         passwordInput.text = "";
-        roleDropdown.value = 0;
-        classDropdown.value = 0;
+        roleDropdown.value = new int[] { 0};
+        classDropdown.value = new int[0];
         doneButton.onClick.RemoveAllListeners();
         doneButton.onClick.AddListener(() => CreateUser());
     }
@@ -51,8 +51,20 @@ public class AddUserSystem : WebRequestManager
         form.AddField("firstName", firstNameInput.text);
         form.AddField("lastName", lastNameInput.text);
         form.AddField("email", emailInput.text);
-        if(classDropdown.value != 0) form.AddField("class", classDropdown.options[classDropdown.value].text);
-        form.AddField("role", roleDropdown.options[roleDropdown.value].text);
+        string classes = "";
+        foreach (var value in classDropdown.value)
+        {
+            classes += classDropdown.options[value].text + ":";
+        }
+        classes = classes.Remove(classes.Length - 1);
+        form.AddField("class", classes);
+        string roles = "";
+        foreach (var value in roleDropdown.value)
+        {
+            roles += roleDropdown.options[value].text + ":";
+        }
+        roles = roles.Remove(roles.Length - 1);
+        form.AddField("role", roles);
 
         StartCoroutine(PostRequest($"{Utility.action_url}createUser", form));
         if (addUserPanel) addUserPanel.SetActive(false);
@@ -76,12 +88,12 @@ public class AddUserSystem : WebRequestManager
         classes = JsonHelper.FromJson<Class>(webResponse);
         roles = JsonHelper.FromJson<Role>(webResponse);
 
-        List<Dropdown.OptionData> classOptions = new List<Dropdown.OptionData> { new Dropdown.OptionData("None") };
+        List<DropdownMulti.OptionData> classOptions = new List<DropdownMulti.OptionData>();
         foreach (var klas in classes)
         {
             if (klas.CLASS_NAME != null)
             {
-                classOptions.Add(new Dropdown.OptionData(klas.CLASS_NAME));
+                classOptions.Add(new DropdownMulti.OptionData(klas.CLASS_NAME));
             }
         }
         if (classOptions.Count > 1)
@@ -89,12 +101,12 @@ public class AddUserSystem : WebRequestManager
             classDropdown.options = classOptions;
         }
 
-        List<Dropdown.OptionData> roleOptions = new List<Dropdown.OptionData>();
+        List<DropdownMulti.OptionData> roleOptions = new List<DropdownMulti.OptionData>();
         foreach (var rol in roles)
         {
             if (rol.ROLE_NAME != null)
             {
-                roleOptions.Add(new Dropdown.OptionData(rol.ROLE_NAME));
+                roleOptions.Add(new DropdownMulti.OptionData(rol.ROLE_NAME));
             }
         }
         if (roleOptions.Count > 0)

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -171,7 +172,7 @@ namespace UnityEngine.UI
         [Space]
 
         [SerializeField]
-        private int m_Value;
+        private List<int> m_Value = new List<int>();
 
         [Space]
 
@@ -180,96 +181,6 @@ namespace UnityEngine.UI
         [SerializeField]
         private OptionDataList m_Options = new OptionDataList();
 
-        /// <summary>
-        /// The list of possible options. A text string and an image can be specified for each option.
-        /// </summary>
-        /// <remarks>
-        /// This is the list of options within the Dropdown. Each option contains Text and/or image data that you can specify using UI.Dropdown.OptionData before adding to the Dropdown list.
-        /// This also unlocks the ability to edit the Dropdown, including the insertion, removal, and finding of options, as well as other useful tools
-        /// </remarks>
-        /// /// <example>
-        /// <code>
-        /// //Create a new Dropdown GameObject by going to the Hierarchy and clicking __Create__>__UI__>__Dropdown__. Attach this script to the Dropdown GameObject.
-        ///
-        /// using UnityEngine;
-        /// using UnityEngine.UI;
-        /// using System.Collections.Generic;
-        ///
-        /// public class Example : MonoBehaviour
-        /// {
-        ///     //Use these for adding options to the Dropdown List
-        ///     Dropdown.OptionData m_NewData, m_NewData2;
-        ///     //The list of messages for the Dropdown
-        ///     List<Dropdown.OptionData> m_Messages = new List<Dropdown.OptionData>();
-        ///
-        ///
-        ///     //This is the Dropdown
-        ///     Dropdown m_Dropdown;
-        ///     string m_MyString;
-        ///     int m_Index;
-        ///
-        ///     void Start()
-        ///     {
-        ///         //Fetch the Dropdown GameObject the script is attached to
-        ///         m_Dropdown = GetComponent<Dropdown>();
-        ///         //Clear the old options of the Dropdown menu
-        ///         m_Dropdown.ClearOptions();
-        ///
-        ///         //Create a new option for the Dropdown menu which reads "Option 1" and add to messages List
-        ///         m_NewData = new Dropdown.OptionData();
-        ///         m_NewData.text = "Option 1";
-        ///         m_Messages.Add(m_NewData);
-        ///
-        ///         //Create a new option for the Dropdown menu which reads "Option 2" and add to messages List
-        ///         m_NewData2 = new Dropdown.OptionData();
-        ///         m_NewData2.text = "Option 2";
-        ///         m_Messages.Add(m_NewData2);
-        ///
-        ///         //Take each entry in the message List
-        ///         foreach (Dropdown.OptionData message in m_Messages)
-        ///         {
-        ///             //Add each entry to the Dropdown
-        ///             m_Dropdown.options.Add(message);
-        ///             //Make the index equal to the total number of entries
-        ///             m_Index = m_Messages.Count - 1;
-        ///         }
-        ///     }
-        ///
-        ///     //This OnGUI function is used here for a quick demonstration. See the [[wiki:UISystem|UI Section]] for more information about setting up your own UI.
-        ///     void OnGUI()
-        ///     {
-        ///         //TextField for user to type new entry to add to Dropdown
-        ///         m_MyString = GUI.TextField(new Rect(0, 40, 100, 40), m_MyString);
-        ///
-        ///         //Press the "Add" Button to add a new entry to the Dropdown
-        ///         if (GUI.Button(new Rect(0, 0, 100, 40), "Add"))
-        ///         {
-        ///             //Make the index the last number of entries
-        ///             m_Index = m_Messages.Count;
-        ///             //Create a temporary option
-        ///             Dropdown.OptionData temp = new Dropdown.OptionData();
-        ///             //Make the option the data from the TextField
-        ///             temp.text = m_MyString;
-        ///
-        ///             //Update the messages list with the TextField data
-        ///             m_Messages.Add(temp);
-        ///
-        ///             //Add the Textfield data to the Dropdown
-        ///             m_Dropdown.options.Insert(m_Index, temp);
-        ///         }
-        ///
-        ///         //Press the "Remove" button to delete the selected option
-        ///         if (GUI.Button(new Rect(110, 0, 100, 40), "Remove"))
-        ///         {
-        ///             //Remove the current selected item from the Dropdown from the messages List
-        ///             m_Messages.RemoveAt(m_Dropdown.value);
-        ///             //Remove the current selection from the Dropdown
-        ///             m_Dropdown.options.RemoveAt(m_Dropdown.value);
-        ///         }
-        ///     }
-        /// }
-        /// </code>
-        /// </example>
         public List<OptionData> options
         {
             get { return m_Options.options; }
@@ -282,46 +193,6 @@ namespace UnityEngine.UI
         [SerializeField]
         private DropdownEvent m_OnValueChanged = new DropdownEvent();
 
-        /// <summary>
-        /// A UnityEvent that is invoked when when a user has clicked one of the options in the dropdown list.
-        /// </summary>
-        /// <remarks>
-        /// Use this to detect when a user selects one or more options in the Dropdown. Add a listener to perform an action when this UnityEvent detects a selection by the user. See https://unity3d.com/learn/tutorials/topics/scripting/delegates for more information on delegates.
-        /// </remarks>
-        /// <example>
-        ///  <code>
-        /// //Create a new Dropdown GameObject by going to the Hierarchy and clicking Create>UI>Dropdown. Attach this script to the Dropdown GameObject.
-        /// //Set your own Text in the Inspector window
-        ///
-        /// using UnityEngine;
-        /// using UnityEngine.UI;
-        ///
-        /// public class Example : MonoBehaviour
-        /// {
-        ///     Dropdown m_Dropdown;
-        ///     public Text m_Text;
-        ///
-        ///     void Start()
-        ///     {
-        ///         //Fetch the Dropdown GameObject
-        ///         m_Dropdown = GetComponent<Dropdown>();
-        ///         //Add listener for when the value of the Dropdown changes, to take action
-        ///         m_Dropdown.onValueChanged.AddListener(delegate {
-        ///                 DropdownValueChanged(m_Dropdown);
-        ///             });
-        ///
-        ///         //Initialise the Text to say the first value of the Dropdown
-        ///         m_Text.text = "First Value : " + m_Dropdown.value;
-        ///     }
-        ///
-        ///     //Ouput the new value of the Dropdown into Text
-        ///     void DropdownValueChanged(Dropdown change)
-        ///     {
-        ///         m_Text.text =  "New Value : " + change.value;
-        ///     }
-        /// }
-        /// </code>
-        /// </example>
         public DropdownEvent onValueChanged { get { return m_OnValueChanged; } set { m_OnValueChanged = value; } }
 
         [SerializeField]
@@ -335,7 +206,6 @@ namespace UnityEngine.UI
         private GameObject m_Dropdown;
         private GameObject m_Blocker;
         private List<DropdownItem> m_Items = new List<DropdownItem>();
-        //private TweenRunner<FloatTween> m_AlphaTweenRunner;
         private bool validTemplate = false;
 
         private static OptionData s_NoOptionData = new OptionData();
@@ -343,50 +213,11 @@ namespace UnityEngine.UI
         /// <summary>
         /// The Value is the index number of the current selection in the Dropdown. 0 is the first option in the Dropdown, 1 is the second, and so on.
         /// </summary>
-        /// <example>
-        /// <code>
-        /// //Create a new Dropdown GameObject by going to the Hierarchy and clicking __Create__>__UI__>__Dropdown__. Attach this script to the Dropdown GameObject.
-        /// //Set your own Text in the Inspector window
-        ///
-        /// using UnityEngine;
-        /// using UnityEngine.UI;
-        ///
-        /// public class Example : MonoBehaviour
-        /// {
-        ///     //Attach this script to a Dropdown GameObject
-        ///     Dropdown m_Dropdown;
-        ///     //This is the string that stores the current selection m_Text of the Dropdown
-        ///     string m_Message;
-        ///     //This Text outputs the current selection to the screen
-        ///     public Text m_Text;
-        ///     //This is the index value of the Dropdown
-        ///     int m_DropdownValue;
-        ///
-        ///     void Start()
-        ///     {
-        ///         //Fetch the DropDown component from the GameObject
-        ///         m_Dropdown = GetComponent<Dropdown>();
-        ///         //Output the first Dropdown index value
-        ///         Debug.Log("Starting Dropdown Value : " + m_Dropdown.value);
-        ///     }
-        ///
-        ///     void Update()
-        ///     {
-        ///         //Keep the current index of the Dropdown in a variable
-        ///         m_DropdownValue = m_Dropdown.value;
-        ///         //Change the message to say the name of the current Dropdown selection using the value
-        ///         m_Message = m_Dropdown.options[m_DropdownValue].text;
-        ///         //Change the onscreen Text to reflect the current Dropdown selection
-        ///         m_Text.text = m_Message;
-        ///     }
-        /// }
-        /// </code>
-        /// </example>
-        public int value
+        public int[] value
         {
             get
             {
-                return m_Value;
+                return m_Value.ToArray();
             }
             set
             {
@@ -397,24 +228,30 @@ namespace UnityEngine.UI
         /// Set index number of the current selection in the Dropdown without invoking onValueChanged callback.
         /// </summary>
         /// <param name="input"> The new index for the current selection. </param>
-        public void SetValueWithoutNotify(int input)
+        public void SetValueWithoutNotify(int[] input)
         {
             Set(input, false);
         }
 
-        void Set(int value, bool sendCallback = true)
+        void Set(int[] values, bool sendCallback = true)
         {
-            if (Application.isPlaying && (value == m_Value || options.Count == 0))
-                return;
+            m_Value.Clear();
 
-            m_Value = Mathf.Clamp(value, 0, options.Count - 1);
+            foreach (var value in values)
+            {
+                if (Application.isPlaying && (options.Count == 0))
+                    return;
+
+                m_Value.Add(Mathf.Clamp(value, 0, options.Count - 1));
+            }
+
             RefreshShownValue();
 
             if (sendCallback)
             {
                 // Notify all listeners
                 UISystemProfilerApi.AddMarker("Dropdown.value", this);
-                m_OnValueChanged.Invoke(m_Value);
+                m_OnValueChanged.Invoke(0);
             }
         }
 
@@ -434,7 +271,7 @@ namespace UnityEngine.UI
 
         protected override void Start()
         {
-            //m_AlphaTweenRunner = new TweenRunner<FloatTween>();
+            //m_AlphaTweenRunner = new Tween();
             //m_AlphaTweenRunner.Init(this);
             base.Start();
 
@@ -473,25 +310,28 @@ namespace UnityEngine.UI
         /// </remarks>
         public void RefreshShownValue()
         {
-            OptionData data = s_NoOptionData;
+            string values = "";
+            Sprite image = null;
+            foreach (var value in m_Value)
+            {
+                OptionData data = s_NoOptionData;
 
-            if (options.Count > 0)
-                data = options[Mathf.Clamp(m_Value, 0, options.Count - 1)];
+                if (options.Count == 0) break;
+
+                data = options[Mathf.Clamp(value, 0, options.Count - 1)];
+                values += data.text + ", ";
+                image = data.image;
+            }
+            if(values.Length > 2) values = values.Remove(values.Length - 2);
 
             if (m_CaptionText)
             {
-                if (data != null && data.text != null)
-                    m_CaptionText.text = data.text;
-                else
-                    m_CaptionText.text = "";
+                m_CaptionText.text = values;
             }
 
             if (m_CaptionImage)
             {
-                if (data != null)
-                    m_CaptionImage.sprite = data.image;
-                else
-                    m_CaptionImage.sprite = null;
+                m_CaptionImage.sprite = image;
                 m_CaptionImage.enabled = (m_CaptionImage.sprite != null);
             }
         }
@@ -516,33 +356,6 @@ namespace UnityEngine.UI
         /// Add a List of string messages to the Dropdown. The Dropdown shows each member of the list as a separate option.
         /// </remarks>
         /// <param name="options">The list of text strings to add.</param>
-        /// <example>
-        /// <code>
-        /// //Create a new Dropdown GameObject by going to the Hierarchy and clicking Create>UI>Dropdown. Attach this script to the Dropdown GameObject.
-        ///
-        /// using System.Collections.Generic;
-        /// using UnityEngine;
-        /// using UnityEngine.UI;
-        ///
-        /// public class Example : MonoBehaviour
-        /// {
-        ///     //Create a List of new Dropdown options
-        ///     List<string> m_DropOptions = new List<string> { "Option 1", "Option 2"};
-        ///     //This is the Dropdown
-        ///     Dropdown m_Dropdown;
-        ///
-        ///     void Start()
-        ///     {
-        ///         //Fetch the Dropdown GameObject the script is attached to
-        ///         m_Dropdown = GetComponent<Dropdown>();
-        ///         //Clear the old options of the Dropdown menu
-        ///         m_Dropdown.ClearOptions();
-        ///         //Add the options created in the List above
-        ///         m_Dropdown.AddOptions(m_DropOptions);
-        ///     }
-        /// }
-        /// </code>
-        /// </example>
         public void AddOptions(List<string> options)
         {
             var optionsCount = options.Count;
@@ -572,7 +385,7 @@ namespace UnityEngine.UI
         public void ClearOptions()
         {
             options.Clear();
-            m_Value = 0;
+            m_Value.Clear();
             RefreshShownValue();
         }
 
@@ -767,12 +580,12 @@ namespace UnityEngine.UI
             for (int i = 0; i < optionsCount; ++i)
             {
                 OptionData data = options[i];
-                DropdownItem item = AddItem(data, value == i, itemTemplate, m_Items);
+                DropdownItem item = AddItem(data, m_Value.Contains(i), itemTemplate, m_Items);
                 if (item == null)
                     continue;
 
                 // Automatically set up a toggle state change listener
-                item.toggle.isOn = value == i;
+                item.toggle.isOn = m_Value.Contains(i);
                 item.toggle.onValueChanged.AddListener(x => OnSelectItem(item.toggle));
 
                 // Select current option
@@ -1023,10 +836,8 @@ namespace UnityEngine.UI
             if (end.Equals(start))
                 return;
 
-            //FloatTween tween = new FloatTween { duration = duration, startValue = start, targetValue = end };
-            //tween.AddOnChangedCallback(SetAlpha);
-            //tween.ignoreTimeScale = true;
-            //m_AlphaTweenRunner.StartTween(tween);
+            float alpha = start;
+            DOTween.To(() => alpha, x => SetAlpha(x), end, duration);
         }
 
         private void SetAlpha(float alpha)
@@ -1079,8 +890,8 @@ namespace UnityEngine.UI
         // Change the value and hide the dropdown.
         private void OnSelectItem(Toggle toggle)
         {
-            if (!toggle.isOn)
-                toggle.isOn = true;
+            //if (!toggle.isOn)
+                //toggle.isOn = true;
 
             int selectedIndex = -1;
             Transform tr = toggle.transform;
@@ -1098,7 +909,9 @@ namespace UnityEngine.UI
             if (selectedIndex < 0)
                 return;
 
-            value = selectedIndex;
+            if(m_Value.Contains(selectedIndex)) m_Value.Remove(selectedIndex);
+            else m_Value.Add(selectedIndex);
+            RefreshShownValue();
             Hide();
         }
     }

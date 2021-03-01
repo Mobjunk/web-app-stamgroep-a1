@@ -2927,7 +2927,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1015885955}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d0b652f32a2cc243917e4028fa0f046, type: 3}
+  m_Script: {fileID: 11500000, guid: 39e7e809ac036834ab8b5bb60364aae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -2964,11 +2964,9 @@ MonoBehaviour:
   m_CaptionImage: {fileID: 0}
   m_ItemText: {fileID: 1062304602}
   m_ItemImage: {fileID: 0}
-  m_Value: 0
+  m_Value: 
   m_Options:
-    m_Options:
-    - m_Text: None
-      m_Image: {fileID: 0}
+    m_Options: []
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -4071,7 +4069,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: None
+  m_Text: 
 --- !u!222 &1122031022
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6427,7 +6425,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1914248043}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d0b652f32a2cc243917e4028fa0f046, type: 3}
+  m_Script: {fileID: 11500000, guid: 39e7e809ac036834ab8b5bb60364aae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -6464,7 +6462,7 @@ MonoBehaviour:
   m_CaptionImage: {fileID: 0}
   m_ItemText: {fileID: 379236892}
   m_ItemImage: {fileID: 0}
-  m_Value: 0
+  m_Value: 
   m_Options:
     m_Options: []
   m_OnValueChanged:
