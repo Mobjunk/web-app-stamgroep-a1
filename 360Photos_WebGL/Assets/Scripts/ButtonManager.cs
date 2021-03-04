@@ -8,9 +8,9 @@ public class ButtonManager : MonoBehaviour
 
     private GameManager _gameManager => GameManager.Instance();
     
-    public void LoadUsers()
+    public void LoadScene(string sceneName)
     {
-        Utility.AddSceneIfNotLoaded("AdminPanelScene");
+        Utility.AddSceneIfNotLoaded(sceneName);
     }
 
     public void Logout()
@@ -23,8 +23,8 @@ public class ButtonManager : MonoBehaviour
         Utility.SwitchScenes("LoggedIn", "360Ruimte");
     }
 
-    public void CloseUserList()
+    public void CloseScene(string sceneName)
     {
-        Utility.UnloadScene("AdminPanelScene");
+        Utility.UnloadScene(sceneName);
     }
 }

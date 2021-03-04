@@ -62,7 +62,7 @@ public class UserList : WebRequestManager
         //Checks if the web response contained unsuccessful
         if (webResponse.Contains("Unsuccessful"))
         {
-            Debug.LogError("Unsuccessful login do something!");
+            Debug.LogError(webResponse);
             return;
         }
 

@@ -30,7 +30,7 @@ public class BlockUserSystem : WebRequestManager
         }
         else
         {
-            UserList.instance.UserListRequest();
+            QuizList.instance.QuizListRequest();
         }
     }
 }

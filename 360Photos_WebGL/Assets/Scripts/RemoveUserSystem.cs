@@ -29,7 +29,7 @@ public class RemoveUserSystem : WebRequestManager
         }
         else
         {
-            UserList.instance.UserListRequest();
+            QuizList.instance.QuizListRequest();
         }
     }
 }
