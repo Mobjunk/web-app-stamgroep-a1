@@ -20,10 +20,13 @@ public class AddUserSystem : WebRequestManager
 
     public void OpenAddUserPanel()
     {
-        if(addUserPanel) addUserPanel.SetActive(true);
+        StartCoroutine(OpenAddUserPanelEnum());
+    }
 
-        StartCoroutine(GetRequest($"{Utility.action_url}classes"));
-        StartCoroutine(GetRequest($"{Utility.action_url}roles"));
+    public IEnumerator OpenAddUserPanelEnum()
+    {
+        yield return StartCoroutine(GetRequest($"{Utility.action_url}classes"));
+        yield return StartCoroutine(GetRequest($"{Utility.action_url}roles"));
 
         userNameInput.text = "";
         firstNameInput.text = "";
@@ -35,6 +38,8 @@ public class AddUserSystem : WebRequestManager
         classDropdown.value = new int[0];
         doneButton.onClick.RemoveAllListeners();
         doneButton.onClick.AddListener(() => CreateUser());
+
+        if (addUserPanel) addUserPanel.SetActive(true);
     }
 
     public void CreateUser()
@@ -54,14 +59,14 @@ public class AddUserSystem : WebRequestManager
         string classes = "";
         foreach (var value in classDropdown.value)
         {
-            classes += classDropdown.options[value].text + ":";
+            classes += value + 1 + ":";
         }
         classes = classes.Remove(classes.Length - 1);
         form.AddField("class", classes);
         string roles = "";
         foreach (var value in roleDropdown.value)
         {
-            roles += roleDropdown.options[value].text + ":";
+            roles += value + 1 + ":";
         }
         roles = roles.Remove(roles.Length - 1);
         form.AddField("role", roles);

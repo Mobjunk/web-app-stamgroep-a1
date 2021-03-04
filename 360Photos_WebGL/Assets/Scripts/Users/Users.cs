@@ -32,7 +32,7 @@ public class Users
         string[] splitRoles = currentRoles.Split(':');
         foreach (string roleName in splitRoles)
         {
-            Role role = RoleManager.instance.GetRoleByName(roleName);
+            Role role = RoleManager.instance.GetRoleByID(roleName);
             if (role == null) continue;
             roles.Add(role);
         }
@@ -43,7 +43,7 @@ public class Users
         string[] splitRoles = currentClass.Split(':');
         foreach (string roleName in splitRoles)
         {
-            Class @class = ClassManager.instance.GetClassByName(roleName);
+            Class @class = ClassManager.instance.GetClassByID(roleName);
             if (@class == null) continue;
             classes.Add(@class);
         }

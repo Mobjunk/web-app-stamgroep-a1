@@ -36,4 +36,10 @@ public class RoleManager : JsonHandler<Role>
     {
         return entries.FirstOrDefault(role => role.ROLE_NAME.Equals(roleName));
     }
+
+    public Role GetRoleByID(string roleID)
+    {
+        int.TryParse(roleID, out int ID);
+        return entries.FirstOrDefault(role => role.ID.Equals(ID));
+    }
 }

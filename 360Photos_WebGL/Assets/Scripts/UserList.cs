@@ -122,7 +122,7 @@ public class UserList : WebRequestManager
                     blockButton.onClick.AddListener(() => BlockUserSystem.instance.BlockUser(userInfo[0], (!blockState).ToString()));
                 }
 
-                buttons.Find("Edit").GetComponent<Button>().onClick.AddListener(() => EditUserSystem.instance.OpenEditUserPanel(userClass));
+                buttons.Find("Edit").GetComponent<Button>().onClick.AddListener(() => StartCoroutine(EditUserSystem.instance.OpenEditUserPanel(userClass)));
             }
         }
     }

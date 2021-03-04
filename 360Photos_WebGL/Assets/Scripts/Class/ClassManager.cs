@@ -32,8 +32,14 @@ public class ClassManager : JsonHandler<Class>
 
     public override void Update() { }
 
-    public Class GetClassByName(string roleName)
+    public Class GetClassByName(string className)
     {
-        return entries.FirstOrDefault(c => c.CLASS_NAME.Equals(roleName));
+        return entries.FirstOrDefault(c => c.CLASS_NAME.Equals(className));
+    }
+
+    public Class GetClassByID(string classID)
+    {
+        int.TryParse(classID, out int ID);
+        return entries.FirstOrDefault(c => c.ID.Equals(ID));
     }
 }

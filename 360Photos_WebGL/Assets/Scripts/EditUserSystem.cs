@@ -26,13 +26,12 @@ public class EditUserSystem : WebRequestManager
         else instance = this;
     }
 
-    public void OpenEditUserPanel(Users user)
+    public IEnumerator OpenEditUserPanel(Users user)
     {
         latestUser = user;
-        if(editUserPanel) editUserPanel.SetActive(true);
 
-        StartCoroutine(GetRequest($"{Utility.action_url}classes"));
-        StartCoroutine(GetRequest($"{Utility.action_url}roles"));
+        yield return StartCoroutine(GetRequest($"{Utility.action_url}classes"));
+        yield return StartCoroutine(GetRequest($"{Utility.action_url}roles"));
 
         userNameInput.text = user.username;
         firstNameInput.text = user.firstName;
@@ -53,6 +52,8 @@ public class EditUserSystem : WebRequestManager
         classDropdown.value = classes.ToArray();
         doneButton.onClick.RemoveAllListeners();
         doneButton.onClick.AddListener(() => EditUser());
+
+        if (editUserPanel) editUserPanel.SetActive(true);
     }
 
     public void EditUser()
@@ -71,16 +72,17 @@ public class EditUserSystem : WebRequestManager
         string classes = "";
         foreach (var value in classDropdown.value)
         {
-            classes += classDropdown.options[value].text + ":";
+            classes += value + 1 + ":";
         }
         classes = classes.Remove(classes.Length - 1);
         form.AddField("class", classes);
         string roles = "";
         foreach (var value in roleDropdown.value)
         {
-            roles += roleDropdown.options[value].text + ":";
+            roles += value + 1 + ":";
         }
         roles = roles.Remove(roles.Length - 1);
+        form.AddField("role", roles);
 
         StartCoroutine(PostRequest($"{Utility.action_url}editUser", form));
         if (editUserPanel) editUserPanel.SetActive(false);
@@ -106,6 +108,7 @@ public class EditUserSystem : WebRequestManager
             return;
         }
 
+        Debug.LogError(webResponse);
         classes = JsonHelper.FromJson<Class>(webResponse);
         roles = JsonHelper.FromJson<Role>(webResponse);
 
