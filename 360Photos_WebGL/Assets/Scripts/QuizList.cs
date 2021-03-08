@@ -93,6 +93,7 @@ public class QuizList : WebRequestManager
                 string classes = "";
                 foreach (var item in classesID)
                 {
+                    if (item.Trim() == "") continue;
                     classes += ClassManager.instance.GetClassByID(item).CLASS_NAME;
                     classes += ", ";
                 }
