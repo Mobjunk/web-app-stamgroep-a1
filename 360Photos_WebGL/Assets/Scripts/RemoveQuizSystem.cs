@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RemoveUserSystem : WebRequestManager
+public class RemoveQuizSystem : WebRequestManager
 {
-    public static RemoveUserSystem instance;
+    public static RemoveQuizSystem instance;
 
     private void Awake()
     {
@@ -12,11 +12,11 @@ public class RemoveUserSystem : WebRequestManager
         else instance = this;
     }
 
-    public void RemoveUser(string id)
+    public void RemoveQuiz(string id)
     {
         WWWForm form = new WWWForm();
         form.AddField("id", id);
-        StartCoroutine(PostRequest($"{Utility.action_url}deleteUser", form));
+        StartCoroutine(PostRequest($"{Utility.action_url}deleteQuiz", form));
     }
 
     public override void FinishedResponse()
@@ -29,7 +29,7 @@ public class RemoveUserSystem : WebRequestManager
         }
         else
         {
-            UserList.instance.UserListRequest();
+            QuizList.instance.QuizListRequest();
         }
     }
 }

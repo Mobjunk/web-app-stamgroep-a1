@@ -100,11 +100,10 @@ public class QuizList : WebRequestManager
                 if (classes.Length > 2) classes = classes.Remove(classes.Length - 2, 2);
                 information.Find("AccesClasses").GetComponent<Text>().text = classes;
 
-                //Transform buttons = placedQuizDisplay.transform.GetChild(1);
-                //if (gameManager.CurrentUser.username == quizInfo[1]) buttons.Find("Delete").gameObject.SetActive(false);
-                //else buttons.Find("Delete").GetComponent<Button>().onClick.AddListener(() => RemoveUserSystem.instance.RemoveUser(quizInfo[0]));
+                Transform buttons = placedQuizDisplay.transform.GetChild(1);
+                buttons.Find("Delete").GetComponent<Button>().onClick.AddListener(() => RemoveQuizSystem.instance.RemoveQuiz(quizInfo[0]));
 
-                //buttons.Find("Edit").GetComponent<Button>().onClick.AddListener(() => StartCoroutine(EditUserSystem.instance.OpenEditUserPanel(userClass)));
+                buttons.Find("Edit").GetComponent<Button>().onClick.AddListener(() => StartCoroutine(EditQuizSystem.instance.OpenEditQuizPanel(quizInfo[0], quizInfo[1], quizInfo[5])));
             }
         }
     }

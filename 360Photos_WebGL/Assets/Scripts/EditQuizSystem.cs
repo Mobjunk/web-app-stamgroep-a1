@@ -3,39 +3,49 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AddQuizSystem : WebRequestManager
+public class EditQuizSystem : WebRequestManager
 {
-    [SerializeField] private GameObject addQuizPanel;
+    [SerializeField] private GameObject editQuizPanel;
     [SerializeField] private InputField QuizNameInput;
     [SerializeField] private DropdownMulti classDropdown;
     [SerializeField] private Button doneButton;
 
     private Class[] classes;
+    public static EditQuizSystem instance;
 
-    public void OpenAddQuizPanel()
+    private void Awake()
     {
-        StartCoroutine(OpenAddQuizPanelEnum());
+        if (instance) Destroy(this);
+        else instance = this;
     }
 
-    public IEnumerator OpenAddQuizPanelEnum()
+    public IEnumerator OpenEditQuizPanel(string id, string quizName, string klassenRaw)
     {
+
         yield return StartCoroutine(GetRequest($"{Utility.action_url}classes"));
+        yield return StartCoroutine(GetRequest($"{Utility.action_url}roles"));
 
-        QuizNameInput.text = "";
-        classDropdown.value = new int[0];
+        QuizNameInput.text = quizName;
+        List<int> classes = new List<int>();
+        foreach (var klas in klassenRaw.Split(':'))
+        {
+            int klasID = 0;
+            if (int.TryParse(klas, out klasID)) classes.Add(klasID);
+        }
+        classDropdown.value = classes.ToArray();
         doneButton.onClick.RemoveAllListeners();
-        doneButton.onClick.AddListener(() => CreateQuiz());
+        doneButton.onClick.AddListener(() => EditQuiz(id));
 
-        if (addQuizPanel) addQuizPanel.SetActive(true);
+        if (editQuizPanel) editQuizPanel.SetActive(true);
     }
 
-    public void CreateQuiz()
+    public void EditQuiz(string id)
     {
         if (QuizNameInput.text == "") return;
 
         WWWForm form = new WWWForm();
+        form.AddField("id", id);
         form.AddField("quizName", QuizNameInput.text);
-
         string classes = "";
         foreach (var value in classDropdown.value)
         {
@@ -43,10 +53,9 @@ public class AddQuizSystem : WebRequestManager
         }
         if(classes.Length > 1) classes = classes.Remove(classes.Length - 1);
         form.AddField("class", classes);
-        form.AddField("ownerID", gameManager.CurrentUser.id);
 
-        StartCoroutine(PostRequest($"{Utility.action_url}createQuiz", form));
-        if (addQuizPanel) addQuizPanel.SetActive(false);
+        StartCoroutine(PostRequest($"{Utility.action_url}editQuiz", form));
+        if (editQuizPanel) editQuizPanel.SetActive(false);
     }
 
     public override void FinishedResponse()
@@ -58,12 +67,18 @@ public class AddQuizSystem : WebRequestManager
             return;
         }
 
-        if (webResponse == "Succesfully added a new quiz!")
+        if (webResponse == "Succesfully edited quiz!")
         {
             QuizList.instance.QuizListRequest();
             return;
         }
+        else if (webResponse.Contains("error"))
+        {
+            Debug.LogError(webResponse);
+            return;
+        }
 
+        Debug.LogError(webResponse);
         classes = JsonHelper.FromJson<Class>(webResponse);
 
         List<DropdownMulti.OptionData> classOptions = new List<DropdownMulti.OptionData>();
