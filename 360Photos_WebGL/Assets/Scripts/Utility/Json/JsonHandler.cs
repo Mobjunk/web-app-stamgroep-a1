@@ -133,6 +133,8 @@ public abstract class JsonHandler<T> : MonoBehaviour
             
             jsonString = webRequest.downloadHandler.text;
             
+            Debug.Log("jsonString: " + jsonString);
+            
             FillArray();
         }
     }
