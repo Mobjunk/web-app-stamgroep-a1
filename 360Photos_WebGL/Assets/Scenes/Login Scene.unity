@@ -2044,6 +2044,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1405643924}
   - component: {fileID: 1405643923}
+  - component: {fileID: 1405643925}
   m_Layer: 0
   m_Name: LoginManager
   m_TagString: Untagged
@@ -2083,6 +2084,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1405643925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405643922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36c7a66e0936d3e4ba00eda089d8dd22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectables:
+  - {fileID: 1467119279}
+  - {fileID: 708428931}
+  - {fileID: 1487212885}
+  switchKey: 9
 --- !u!1 &1420074791
 GameObject:
   m_ObjectHideFlags: 0
