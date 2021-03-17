@@ -11,7 +11,6 @@ public class CameraRotation : MonoBehaviour
  
     void FixedUpdate()
     {
-        
         if (Input.GetMouseButton(0))
         {
             posX += Input.GetAxis("Mouse X") * rotationSpeed;
@@ -39,8 +38,6 @@ public class CameraRotation : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = false;
-        }
-        
+        }   
     }
-    
 }
