@@ -6,9 +6,7 @@ using UnityEngine.UI;
 public class GameManager : Singleton<GameManager>
 {
     
-    public GameObject Areas;
     private Users currentUser;
-    Text areaName;
     public Users CurrentUser
     {
         get => currentUser;
@@ -17,15 +15,6 @@ public class GameManager : Singleton<GameManager>
 
     private void Awake()
     {
-        
-        Instantiate(Areas);
         Utility.AddSceneIfNotLoaded("Login Scene");
-    }
-
-    public void ChangeAreaText(GameObject newArea)
-    {
-        string[] newAreaName = newArea.ToString().Split('(', ')');
-
-        areaName.text = newAreaName[1];
     }
 }
