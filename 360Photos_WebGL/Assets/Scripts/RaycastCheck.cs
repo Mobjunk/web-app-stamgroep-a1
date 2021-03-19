@@ -66,7 +66,7 @@ public class RaycastCheck : MonoBehaviour
                 {
                     selectedButton.GetComponent<MeshRenderer>().material.color = Color.white;
                     print("deselect");
-                    deleteButton.gameObject.SetActive(false);
+                    //deleteButton.gameObject.SetActive(false);
                 }
                 
             }
