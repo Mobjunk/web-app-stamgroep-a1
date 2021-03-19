@@ -68,6 +68,7 @@ public class ButtonCreator : MonoBehaviour
             GameObject newButton = Instantiate(buttons[selector.value - 1], FindCurrentArea().transform);
             newButton.transform.position = mainCamera.transform.rotation * new Vector3(0, 0, createDistance + mainCamera.transform.position.z);
             newButton.transform.LookAt(mainCamera.transform);
+            //EditorManager.Instance().AddButton(newButton, )
         }
     }
 
