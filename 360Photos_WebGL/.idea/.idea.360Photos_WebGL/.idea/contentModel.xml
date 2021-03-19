@@ -30,7 +30,9 @@
           <e p="AddQuizSystem.cs" t="Include" />
           <e p="AddUserSystem.cs" t="Include" />
           <e p="BlockUserSystem.cs" t="Include" />
+          <e p="ButtonCreator.cs" t="Include" />
           <e p="ButtonManager.cs" t="Include" />
+          <e p="ButtonScript.cs" t="Include" />
           <e p="CameraRotation.cs" t="Include" />
           <e p="Class" t="Include">
             <e p="Class.cs" t="Include" />
@@ -39,25 +41,39 @@
           <e p="DropdownMulti.cs" t="Include" />
           <e p="EditQuizSystem.cs" t="Include" />
           <e p="EditUserSystem.cs" t="Include" />
-          <e p="FileDialogButton.cs" t="Include" />
-          <e p="FileUploadManager.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
           <e p="Login" t="Include">
             <e p="LoginManager.cs" t="Include" />
           </e>
           <e p="PhotoChanger.cs" t="Include" />
           <e p="QuizList.cs" t="Include" />
+          <e p="RaycastCheck.cs" t="Include" />
           <e p="RemoveQuizSystem.cs" t="Include" />
           <e p="RemoveUserSystem.cs" t="Include" />
           <e p="Role" t="Include">
             <e p="Role.cs" t="Include" />
             <e p="RoleManager.cs" t="Include" />
           </e>
+          <e p="UINavigator.cs" t="Include" />
+          <e p="Uploader" t="Include">
+            <e p="FileRemover.cs" t="Include" />
+            <e p="FileUploadManager.cs" t="Include" />
+            <e p="Images" t="Include">
+              <e p="ImageLoader.cs" t="Include" />
+              <e p="ImageManager.cs" t="Include" />
+              <e p="Images.cs" t="Include" />
+            </e>
+            <e p="Preview" t="Include">
+              <e p="PreviewHandler.cs" t="Include" />
+              <e p="PreviewImage.cs" t="Include" />
+            </e>
+          </e>
           <e p="UserList.cs" t="Include" />
           <e p="Users" t="Include">
             <e p="Users.cs" t="Include" />
           </e>
           <e p="Utility" t="Include">
+            <e p="CachedSprite.cs" t="Include" />
             <e p="Json" t="Include">
               <e p="JsonHandler.cs" t="Include" />
               <e p="JsonHelper.cs" t="Include" />
