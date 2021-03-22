@@ -158,8 +158,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -381.84998, y: 0}
-  m_SizeDelta: {x: -763.7001, y: 0}
+  m_AnchoredPosition: {x: -315.30804, y: 0}
+  m_SizeDelta: {x: -630.656, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3249776426136347834
 MonoBehaviour:
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_Spacing: 20
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 1
+  m_ChildControlWidth: 0
   m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
@@ -343,7 +343,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 277.49017, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3249776426420698462
 CanvasRenderer:
@@ -543,7 +543,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 277.49017, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3249776426886996534
 CanvasRenderer:
@@ -778,7 +778,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 277.49017, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3249776427231464179
 CanvasRenderer:
@@ -857,7 +857,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 277.49017, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3249776427426189320
 CanvasRenderer:
@@ -1016,8 +1016,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 600, y: 0}
-  m_SizeDelta: {x: -1200, y: 0}
+  m_AnchoredPosition: {x: 731.3384, y: 0}
+  m_SizeDelta: {x: -1462.6766, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3249776428129373205
 MonoBehaviour:
