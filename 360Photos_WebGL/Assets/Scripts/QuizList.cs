@@ -10,6 +10,7 @@ public class QuizList : WebRequestManager
     [SerializeField] private int numberOfQuizes = 30;
     [SerializeField] private Transform quizParent;
     [SerializeField] private GameObject quizDisplay;
+    [SerializeField] private QuizEditorOpen quizEditorOpen;
 
     public static QuizList instance;
 
@@ -104,6 +105,8 @@ public class QuizList : WebRequestManager
                 buttons.Find("Delete").GetComponent<Button>().onClick.AddListener(() => RemoveQuizSystem.instance.RemoveQuiz(quizInfo[0]));
 
                 buttons.Find("Edit").GetComponent<Button>().onClick.AddListener(() => StartCoroutine(EditQuizSystem.instance.OpenEditQuizPanel(quizInfo[0], quizInfo[1], quizInfo[5])));
+
+                buttons.Find("Open Editor").GetComponent<Button>().onClick.AddListener(() => quizEditorOpen.OpenEditor(quizInfo[0], quizInfo[1], quizInfo[4], quizInfo[5], quizInfo[3]));
             }
         }
     }
