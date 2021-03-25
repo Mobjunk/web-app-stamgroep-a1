@@ -2358,6 +2358,7 @@ GameObject:
   - component: {fileID: 1125979643}
   - component: {fileID: 1125979644}
   - component: {fileID: 1125979645}
+  - component: {fileID: 1125979647}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2384,6 +2385,7 @@ MonoBehaviour:
   numberOfQuizes: 30
   quizParent: {fileID: 2107223157}
   quizDisplay: {fileID: 3249776427219084985, guid: 4a85b1c8e049a7f4fa1cc48b7abbe1ce, type: 3}
+  quizEditorOpen: {fileID: 1125979647}
 --- !u!4 &1125979642
 Transform:
   m_ObjectHideFlags: 0
@@ -2460,6 +2462,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b97b481a92049144966dda2290f644e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1125979647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125979640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4d25b706bdd0ab4ca9db5671e0b7a1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  webResponse: 
+  webError: 
 --- !u!1 &1190415558
 GameObject:
   m_ObjectHideFlags: 0
