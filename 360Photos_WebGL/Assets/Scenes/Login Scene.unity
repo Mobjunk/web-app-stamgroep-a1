@@ -1274,9 +1274,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectables:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1832301678}
+  - {fileID: 2092057820}
+  - {fileID: 652534420}
   switchKey: 9
 --- !u!1 &1420074791
 GameObject:

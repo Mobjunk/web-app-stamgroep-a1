@@ -30,11 +30,13 @@ public class UINavigator : MonoBehaviour, IPointerClickHandler
         {
             if(selectedIndex < selectables.Length - 1)
             {
-                selectables[selectedIndex + 1].GetComponent<InputField>().OnPointerClick(null);
+                selectables[selectedIndex + 1].Select();
+                selectedIndex++;
             }
             else
             {
                 selectables[0].Select();
+                selectedIndex = 0;
             }
         }
     }
