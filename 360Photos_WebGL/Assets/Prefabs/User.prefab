@@ -158,8 +158,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -315.30804, y: 0}
-  m_SizeDelta: {x: -630.656, y: 0}
+  m_AnchoredPosition: {x: -340.3861, y: 0}
+  m_SizeDelta: {x: -680.812, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3249776426136347834
 MonoBehaviour:
@@ -665,7 +665,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Edit
+  m_Text: Bewerken
 --- !u!1 &3249776427219084985
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,7 +979,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Delete
+  m_Text: Verwijderen
 --- !u!1 &3249776428129373207
 GameObject:
   m_ObjectHideFlags: 0
@@ -1016,8 +1016,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 731.3384, y: 0}
-  m_SizeDelta: {x: -1462.6766, y: 0}
+  m_AnchoredPosition: {x: 649.3225, y: 0}
+  m_SizeDelta: {x: -1298.645, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3249776428129373205
 MonoBehaviour:
@@ -1123,4 +1123,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Block
+  m_Text: Blokkeren
