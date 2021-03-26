@@ -74,7 +74,7 @@ public class EditUserSystem : WebRequestManager
         {
             classes += value + 1 + ":";
         }
-        classes = classes.Remove(classes.Length - 1);
+        if (classes.Length > 1) classes = classes.Remove(classes.Length - 1);
         form.AddField("class", classes);
         string roles = "";
         foreach (var value in roleDropdown.value)
