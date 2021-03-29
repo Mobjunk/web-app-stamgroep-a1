@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class QuizEditorOpen : WebRequestManager
 {
+    public static string worldID;
+
     public override void FinishedResponse()
     {
         if (!webResponse.Contains("Succesfully"))
@@ -28,6 +30,7 @@ public class QuizEditorOpen : WebRequestManager
         }
         else
         {
+            QuizEditorOpen.worldID = worldID;
             Utility.UnloadScene("LoggedIn");
             Utility.SwitchScenes("QuizPanelScene", "360Ruimte");
         }
