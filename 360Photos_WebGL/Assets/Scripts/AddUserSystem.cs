@@ -14,9 +14,15 @@ public class AddUserSystem : WebRequestManager
     [SerializeField] private DropdownMulti roleDropdown;
     [SerializeField] private DropdownMulti classDropdown;
     [SerializeField] private Button doneButton;
+    [SerializeField] private Text requiredText;
 
     private Class[] classes;
     private Role[] roles;
+
+    private void Start()
+    {
+        requiredText.gameObject.SetActive(false);
+    }
 
     public void OpenAddUserPanel()
     {
@@ -44,18 +50,56 @@ public class AddUserSystem : WebRequestManager
 
     public void CreateUser()
     {
-        if (userNameInput.text == "") return;
-        if (passwordInput.text == "") return;
-        if (emailInput.text == "") return;
-        if (firstNameInput.text == "") return;
-        if (lastNameInput.text == "") return;
+        bool fieldEmpty = false;
+
+        if (userNameInput.text.Trim() == "")
+        {
+            userNameInput.placeholder.color = Color.red;
+            userNameInput.placeholder.GetComponent<Text>().text = "Dit veld is verplicht!";
+            fieldEmpty = true;
+        }
+        if (passwordInput.text.Trim() == "")
+        {
+            passwordInput.placeholder.color = Color.red;
+            passwordInput.placeholder.GetComponent<Text>().text = "Dit veld is verplicht!";
+            fieldEmpty = true;
+        }
+        if (emailInput.text.Trim() == "")
+        {
+            emailInput.placeholder.color = Color.red;
+            emailInput.placeholder.GetComponent<Text>().text = "Dit veld is verplicht!";
+            fieldEmpty = true;
+        }
+        if (firstNameInput.text.Trim() == "")
+        {
+            firstNameInput.placeholder.color = Color.red;
+            firstNameInput.placeholder.GetComponent<Text>().text = "Dit veld is verplicht!";
+            fieldEmpty = true;
+        }
+        if (lastNameInput.text.Trim() == "")
+        {
+            lastNameInput.placeholder.color = Color.red;
+            lastNameInput.placeholder.GetComponent<Text>().text = "Dit veld is verplicht!";
+            fieldEmpty = true;
+        }
+        
+        if(roleDropdown.value.Length == 0)
+        {
+            requiredText.gameObject.SetActive(true);
+            fieldEmpty = true;
+        }
+
+        if (fieldEmpty) return;
+
 
         WWWForm form = new WWWForm();
+
         form.AddField("username", userNameInput.text);
         form.AddField("password", passwordInput.text);
         form.AddField("firstName", firstNameInput.text);
         form.AddField("lastName", lastNameInput.text);
         form.AddField("email", emailInput.text);
+        
         string classes = "";
         foreach (var value in classDropdown.value)
         {
@@ -83,6 +127,8 @@ public class AddUserSystem : WebRequestManager
             Debug.LogError(webError);
             return;
         }
+
+        Debug.Log(webResponse);
 
         if (webResponse == "Succesfully added a new user!")
         {
