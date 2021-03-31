@@ -13,6 +13,7 @@ public class QuizEditorOpen : WebRequestManager
             Debug.LogError(webResponse);
             return;
         }
+        QuizEditorOpen.worldID = webResponse;
         Utility.UnloadScene("LoggedIn");
         Utility.SwitchScenes("QuizPanelScene", "360Ruimte");
     }

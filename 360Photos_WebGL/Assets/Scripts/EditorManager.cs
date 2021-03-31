@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class EditorManager : Singleton<EditorManager>
 {
-   public Dictionary<int, List<ButtonSave>> buttons = new Dictionary<int, List<ButtonSave>>();
+    //            room id         value              
+   public Dictionary<string, List<ButtonSave>> buttons = new Dictionary<string, List<ButtonSave>>();
+    public List<string> roomsId; 
 
-   public void AddButton(GameObject gameobject, int room)
+
+   public void AddButton(GameObject gameobject, string room)
     {
         if (buttons.ContainsKey(room))
         {

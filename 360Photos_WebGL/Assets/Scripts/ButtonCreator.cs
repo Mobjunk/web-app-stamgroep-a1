@@ -15,6 +15,7 @@ public class ButtonCreator : MonoBehaviour
     public Transform currentArea;
     public Camera mainCamera;
     public float createDistance = 20;
+    //nummer van area die aanstaat
     public int currentSelected = 0;
     public int currentPhoto;
     
@@ -96,8 +97,7 @@ public class ButtonCreator : MonoBehaviour
 
     public void CreateNewArea()
     {
-            GameObject empty = new GameObject();
-            GameObject newArea = Instantiate(empty, areaParent);
+            GameObject newArea = Instantiate(new GameObject(), areaParent);
 
             newArea.transform.position = Vector3.zero;
             newArea.name = $"Area {allAreas.Count + 1}(name)";
@@ -111,7 +111,6 @@ public class ButtonCreator : MonoBehaviour
             allAreas.Add(newArea);
             currentSelected = allAreas.Count;
             currentArea = newArea.transform;
-            Destroy(empty);
     }
 
     public void ChangeArea(bool isPositive)
