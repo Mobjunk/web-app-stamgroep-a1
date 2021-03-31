@@ -8,16 +8,17 @@ using UnityEngine.UI;
 public class EditorLoader : MonoBehaviour
 {
     [SerializeField] private GameObject loadingScreen;
-    private string roomsId;
-    [SerializeField] private Transform areaParent;
+    public Transform areaParent;
 
     private EditorGetWorld editorGetWorld;
     private EditorGetRoom editorGetRoom;
 
+    private List<Coroutine> coroutines = new List<Coroutine>();
+
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(LoadEditor());
+        if(QuizEditorOpen.worldID != "" && QuizEditorOpen.worldID != null) StartCoroutine(LoadEditor());
     }
 
     private IEnumerator LoadEditor()
@@ -26,21 +27,32 @@ public class EditorLoader : MonoBehaviour
 
         editorGetRoom = GetComponent<EditorGetRoom>();
         editorGetWorld = GetComponent<EditorGetWorld>();
+        editorGetRoom.editorLoader = this;
+
+        foreach (Transform child in areaParent)
+        {
+            Destroy(child.gameObject);
+        }
 
         WWWForm form = new WWWForm();
         form.AddField("id", QuizEditorOpen.worldID);
         yield return StartCoroutine(editorGetWorld.PostRequest($"{Utility.action_url}get360World", form));
 
-        roomsId = editorGetWorld.data[2];
+        string[] roomsID = editorGetWorld.data[2].Split(':');
 
-        //split de string naar array in die wordt gezet in de list
-        //foreach (var roomid in EditorManager.Instance().roomsId)
-        //{
-        //    Debug.Log(roomid);
-        //    GameObject newArea = Instantiate(new GameObject(), areaParent);
+        foreach (var roomid in roomsID)
+        {
+            form = new WWWForm();
+            form.AddField("id", roomid);
+            StartCoroutine(editorGetRoom.PostRequest($"{Utility.action_url}get360Room", form));
+        }
 
-        //    newArea.transform.position = Vector3.zero;
-        //    newArea.name = roomid;
-        //}
+        while (EditorManager.Instance().rooms.Count < roomsID.Length)
+        {
+            Debug.LogError(EditorManager.Instance().rooms.Count + " van de " + roomsID.Length + " room loaded.");
+            yield return null;
+        }
+        Debug.LogError(EditorManager.Instance().rooms.Count + " van de " + roomsID.Length + " room loaded.");
+        loadingScreen.SetActive(false);
     }
 }

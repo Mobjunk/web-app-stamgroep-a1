@@ -11,5 +11,9 @@ public class EditorGetWorld : WebRequestManager
         {
              data = webResponse.Replace("world: ", "").Split(',');
         }
+        else
+        {
+            Debug.LogError(webResponse);
+        }
     }
 }

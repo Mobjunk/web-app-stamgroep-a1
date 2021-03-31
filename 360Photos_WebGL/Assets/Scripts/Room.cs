@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Room
 {
-    //public 
-    //public List<ButtonSave> buttons;
+    public Room(Texture photo, List<ButtonSave> buttons)
+    {
+        this.photo = photo;
+        this.buttons = buttons;
+    }
+    public Texture photo;
+    public List<ButtonSave> buttons;
 }

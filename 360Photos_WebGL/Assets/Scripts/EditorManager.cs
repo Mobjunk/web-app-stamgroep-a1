@@ -5,18 +5,16 @@ using UnityEngine;
 public class EditorManager : Singleton<EditorManager>
 {
     //            room id         value              
-   public Dictionary<string, List<ButtonSave>> buttons = new Dictionary<string, List<ButtonSave>>();
+   public Dictionary<string, Room> rooms = new Dictionary<string, Room>();
 
-
-   public void AddButton(GameObject gameobject, string room)
+    
+    public void AddRoom(string roomID, Texture photo, List<ButtonSave> buttons)
     {
-        if (buttons.ContainsKey(room))
-        {
-            buttons[room].Add(new ButtonSave(gameobject, room, "", null, ""));
-        }
-        else
-        {
-            buttons.Add(room, new List<ButtonSave> { new ButtonSave(gameobject, room, "", null, "") });
-        }
+        rooms.Add(roomID, new Room(photo, buttons));
+    }
+
+    public void AddButton(GameObject gameobject, string room)
+    {
+        rooms[room].buttons.Add(new ButtonSave(gameobject, room, "", null, ""));
     }
 }
