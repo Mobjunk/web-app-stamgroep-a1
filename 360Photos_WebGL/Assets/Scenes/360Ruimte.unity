@@ -1962,6 +1962,8 @@ GameObject:
   - component: {fileID: 1117251308}
   - component: {fileID: 1117251309}
   - component: {fileID: 1117251310}
+  - component: {fileID: 1117251312}
+  - component: {fileID: 1117251311}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1982,8 +1984,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   photos:
-  - {fileID: 2100000, guid: ae1fabbd6d38a304e89c984390dd5d79, type: 2}
-  - {fileID: 2100000, guid: 0f79763f38a75664eac2cae1bea6fc64, type: 2}
+  - {fileID: 2800000, guid: 725c4674513dcf94180216bf86dfd039, type: 3}
+  - {fileID: 2800000, guid: d746715aab4d38f43a80d5225af54b3a, type: 3}
   areaParent: {fileID: 1273512640}
   currentPhoto: 0
 --- !u!4 &1117251306
@@ -2060,9 +2062,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d5cc2159b61f5e44889f67442f260cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadingScreen: {fileID: 1332627741}
+  areaParent: {fileID: 0}
+--- !u!114 &1117251311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117251304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25c7f627bbf0632429ad1314111c8acc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   webResponse: 
   webError: 
-  loadingScreen: {fileID: 1332627741}
+  data: []
+--- !u!114 &1117251312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117251304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06f20b58245541641bc5180fe9478e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  webResponse: 
+  webError: 
 --- !u!4 &1126024775 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1388962588677387707, guid: 9e82d8ff5858b5744a400002b8d5fe2d, type: 3}

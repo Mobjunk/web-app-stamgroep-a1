@@ -7,7 +7,7 @@ public class ButtonCreator : MonoBehaviour
 {
     [SerializeField] bool isEditor;
     List<GameObject> allAreas = new List<GameObject>();
-    public List<Material> photos;
+    public List<Texture> photos;
     private Canvas editUi;
     private Dropdown selector;
     public GameObject[] buttons;
@@ -133,7 +133,7 @@ public class ButtonCreator : MonoBehaviour
         if (currentPhoto < photos.Count)
         {
           
-            RenderSettings.skybox = photos[currentPhoto];
+            RenderSettings.skybox.SetTexture("_MainTex", photos[currentPhoto]);
         }
     }
 

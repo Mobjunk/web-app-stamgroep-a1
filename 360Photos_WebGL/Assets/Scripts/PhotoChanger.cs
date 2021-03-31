@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class PhotoChanger : MonoBehaviour
 {
-    public List<Material> photos = new List<Material>();
+    public List<Texture> photos = new List<Texture>();
     public GameObject areaParent;
     public int currentPhoto = 0;
 
@@ -21,7 +21,7 @@ public class PhotoChanger : MonoBehaviour
                 areaParent.transform.GetChild(i).gameObject.SetActive(false);
             }
         }
-        RenderSettings.skybox = photos[0];
+        RenderSettings.skybox.SetTexture("_MainTex", photos[0]);
     }
 
     public void ChangePhoto(bool isPositive)
@@ -36,6 +36,6 @@ public class PhotoChanger : MonoBehaviour
             currentPhoto--;   
         }
         areaParent.transform.GetChild(currentPhoto).gameObject.SetActive(true);
-        RenderSettings.skybox = photos[currentPhoto];
+        RenderSettings.skybox.SetTexture("_MainTex", photos[currentPhoto]);
     }
 }

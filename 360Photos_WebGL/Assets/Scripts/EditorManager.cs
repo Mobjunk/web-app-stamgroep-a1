@@ -6,7 +6,6 @@ public class EditorManager : Singleton<EditorManager>
 {
     //            room id         value              
    public Dictionary<string, List<ButtonSave>> buttons = new Dictionary<string, List<ButtonSave>>();
-    public List<string> roomsId; 
 
 
    public void AddButton(GameObject gameobject, string room)
