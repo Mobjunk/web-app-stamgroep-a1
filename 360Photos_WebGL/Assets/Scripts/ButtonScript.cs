@@ -30,10 +30,10 @@ public class ButtonScript : MonoBehaviour
             switch (currentType)
             {
                 case ButtonTypes.MoveToNextArea:
-                    photoChanger.ChangePhoto(true);
+                    //photoChanger.ChangePhoto(true);
                     break;
                 case ButtonTypes.MoveToPreviousArea:
-                    photoChanger.ChangePhoto(false);
+                    //photoChanger.ChangePhoto(false);
                     break;
                 case ButtonTypes.ShowInfo:
                     break;

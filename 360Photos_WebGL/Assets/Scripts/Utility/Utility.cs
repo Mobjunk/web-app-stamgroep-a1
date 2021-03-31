@@ -50,4 +50,24 @@ public static class Utility
             }
         }
     }
+
+    public static IEnumerator DownloadTexture(string url, System.Action<Texture> callback)
+    {
+        using (var www = UnityWebRequestTexture.GetTexture(url))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.isNetworkError || www.isHttpError)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                if (www.isDone)
+                {
+                    callback(DownloadHandlerTexture.GetContent(www));
+                }
+            }
+        }
+    }
 }

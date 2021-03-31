@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 [RequireComponent(typeof(EditorGetRoom))]
 [RequireComponent(typeof(EditorGetWorld))]
 public class EditorLoader : MonoBehaviour
 {
     [SerializeField] private GameObject loadingScreen;
-    public Transform areaParent;
 
     private EditorGetWorld editorGetWorld;
     private EditorGetRoom editorGetRoom;
@@ -27,9 +27,8 @@ public class EditorLoader : MonoBehaviour
 
         editorGetRoom = GetComponent<EditorGetRoom>();
         editorGetWorld = GetComponent<EditorGetWorld>();
-        editorGetRoom.editorLoader = this;
 
-        foreach (Transform child in areaParent)
+        foreach (Transform child in EditorManager.Instance().areaParent)
         {
             Destroy(child.gameObject);
         }
@@ -53,6 +52,15 @@ public class EditorLoader : MonoBehaviour
             yield return null;
         }
         Debug.LogError(EditorManager.Instance().rooms.Count + " van de " + roomsID.Length + " room loaded.");
+
+        string firstRoomID = "";
+        foreach (string key in EditorManager.Instance().rooms.Keys)
+        {
+            if (firstRoomID == "") firstRoomID = key;
+            else if (int.Parse(key) < int.Parse(firstRoomID)) firstRoomID = key;
+        }
+        EditorManager.Instance().photoChanger.SetPhoto(firstRoomID);
+        EditorManager.Instance().areaChanger.SetArea(firstRoomID);
         loadingScreen.SetActive(false);
     }
 }

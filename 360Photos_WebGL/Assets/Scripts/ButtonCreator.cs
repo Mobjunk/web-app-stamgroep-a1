@@ -34,9 +34,9 @@ public class ButtonCreator : MonoBehaviour
 
         selector = GameObject.Find("ButtonSelector").GetComponent<Dropdown>();
         photoChanger = GameObject.FindObjectOfType<PhotoChanger>().GetComponent<PhotoChanger>();
-        photos = photoChanger.photos;
+        //photos = photoChanger.photos;
         GameObject.FindObjectOfType<RaycastCheck>().GetComponent<RaycastCheck>().isEditor = isEditor;
-        areaParent = photoChanger.areaParent.transform;
+        //areaParent = photoChanger.areaParent.transform;
 
         if ((areaParent = GameObject.FindGameObjectWithTag("AreaParent").transform) == null)
         {

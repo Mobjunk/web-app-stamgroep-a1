@@ -2,15 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AreaChanger))]
+[RequireComponent(typeof(PhotoChanger))]
 public class EditorManager : Singleton<EditorManager>
 {
+    [HideInInspector] public AreaChanger areaChanger;
+    [HideInInspector] public PhotoChanger photoChanger;
+    public Transform areaParent;
     //            room id         value              
-   public Dictionary<string, Room> rooms = new Dictionary<string, Room>();
+    [HideInInspector] public Dictionary<string, Room> rooms = new Dictionary<string, Room>();
+    [HideInInspector] public string activeRoom;
 
-    
-    public void AddRoom(string roomID, Texture photo, List<ButtonSave> buttons)
+    private void Awake()
     {
-        rooms.Add(roomID, new Room(photo, buttons));
+        areaChanger = GetComponent<AreaChanger>();
+        photoChanger = GetComponent<PhotoChanger>();
+    }
+
+    public void AddRoom(string roomID, Texture photo, GameObject area, List<ButtonSave> buttons)
+    {
+        rooms.Add(roomID, new Room(photo, area, buttons));
     }
 
     public void AddButton(GameObject gameobject, string room)
