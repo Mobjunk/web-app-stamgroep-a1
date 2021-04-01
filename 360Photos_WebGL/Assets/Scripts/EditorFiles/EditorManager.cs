@@ -20,9 +20,9 @@ public class EditorManager : Singleton<EditorManager>
         photoChanger = GetComponent<PhotoChanger>();
     }
 
-    public void AddRoom(string roomID, Texture photo, GameObject area, List<ButtonSave> buttons)
+    public void AddRoom(string roomID, Texture photo, string photoName, GameObject area, List<ButtonSave> buttons)
     {
-        rooms.Add(roomID, new Room(roomID, photo, area, buttons));
+        rooms.Add(roomID, new Room(roomID, photo, photoName, area, buttons));
     }
 
     public void AddButton(GameObject gameobject, string room)

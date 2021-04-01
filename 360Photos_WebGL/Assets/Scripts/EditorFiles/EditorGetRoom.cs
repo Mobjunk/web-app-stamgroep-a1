@@ -26,6 +26,7 @@ public class EditorGetRoom : WebRequestManager
         newArea.name = roomID;
 
         Texture photo = null;
+        string photoName = "";
         if (data.Length > 2)
         {
             if (data[2] != "")
@@ -36,6 +37,7 @@ public class EditorGetRoom : WebRequestManager
                     yield return StartCoroutine(Utility.DownloadTexture(Utility.web_url + $"/images/{data[2]}", (response) =>
                     {
                         photo = response;
+                        photoName = data[2];
                         GameManager.Instance().AddCachedTexture(data[2], response);
                     }));
                 }
@@ -43,6 +45,6 @@ public class EditorGetRoom : WebRequestManager
         }
 
         newArea.SetActive(false);
-        EditorManager.Instance().AddRoom(roomID, photo, newArea, new List<ButtonSave>());
+        EditorManager.Instance().AddRoom(roomID, photo, photoName, newArea, new List<ButtonSave>());
     }
 }

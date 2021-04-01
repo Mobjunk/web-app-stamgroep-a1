@@ -26,9 +26,9 @@ public class EditorSave : MonoBehaviour
         {
             WWWForm form = new WWWForm();
             form.AddField("id", room.Key);
-            form.AddField("worldID", room.Key);
-            form.AddField("image", room.Key);
-            form.AddField("buttonsID", room.Key);
+            form.AddField("worldID", QuizEditorOpen.worldID);
+            form.AddField("image", room.Value.photoName);
+            form.AddField("buttonsID", "");
             if(room.Key.StartsWith("0")) StartCoroutine(editorSaveRoom.PostRequest($"{Utility.action_url}create360Room", form));
             else StartCoroutine(editorSaveRoom.PostRequest($"{Utility.action_url}update360Room", form));
         }
@@ -47,7 +47,7 @@ public class EditorSave : MonoBehaviour
         {
             roomsString += rooms.Value + ":";
         }
-        if (roomsString.Length > 2) roomsString.Remove(roomsString.Length - 2);
+        if (roomsString.Length > 2) roomsString = roomsString.Remove(roomsString.Length - 1);
 
         form2.AddField("roomsID", roomsString);
         form2.AddField("name", QuizEditorOpen.quizName);

@@ -26,6 +26,7 @@ public class PhotoChanger : MonoBehaviour
         if (GameManager.Instance().TextureIsCached(filename))
         {
             room.photo = GameManager.Instance().GetCachedTexture(filename);
+            room.photoName = filename;
             SetPhoto(room.roomID);
         }
         else
@@ -33,6 +34,7 @@ public class PhotoChanger : MonoBehaviour
             yield return StartCoroutine(Utility.DownloadTexture(Utility.web_url + $"/images/{filename}", (response) =>
             {
                 room.photo = response;
+                room.photoName = filename;
                 SetPhoto(room.roomID);
                 GameManager.Instance().AddCachedTexture(filename, response);
             }));
