@@ -59,6 +59,7 @@ public class EditorLoader : MonoBehaviour
             if (firstRoomID == "") firstRoomID = key;
             else if (int.Parse(key) < int.Parse(firstRoomID)) firstRoomID = key;
         }
+        EditorManager.Instance().activeRoom = firstRoomID;
         EditorManager.Instance().photoChanger.SetPhoto(firstRoomID);
         EditorManager.Instance().areaChanger.SetArea(firstRoomID);
         loadingScreen.SetActive(false);

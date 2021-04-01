@@ -9,6 +9,7 @@ public class EditorManager : Singleton<EditorManager>
     [HideInInspector] public AreaChanger areaChanger;
     [HideInInspector] public PhotoChanger photoChanger;
     public Transform areaParent;
+    public GameObject imageSelector;
     //            room id         value              
     [HideInInspector] public Dictionary<string, Room> rooms = new Dictionary<string, Room>();
     [HideInInspector] public string activeRoom;
@@ -21,11 +22,16 @@ public class EditorManager : Singleton<EditorManager>
 
     public void AddRoom(string roomID, Texture photo, GameObject area, List<ButtonSave> buttons)
     {
-        rooms.Add(roomID, new Room(photo, area, buttons));
+        rooms.Add(roomID, new Room(roomID, photo, area, buttons));
     }
 
     public void AddButton(GameObject gameobject, string room)
     {
         rooms[room].buttons.Add(new ButtonSave(gameobject, room, "", null, ""));
+    }
+
+    public Room GetActiveRoom()
+    {
+        return rooms[activeRoom];
     }
 }

@@ -23,12 +23,17 @@ public class PhotoChanger : MonoBehaviour
 
     public IEnumerator DownloadPhoto(string filename, Room room)
     {
-        if (GameManager.Instance().TextureIsCached(filename)) room.photo = GameManager.Instance().GetCachedTexture(filename);
+        if (GameManager.Instance().TextureIsCached(filename))
+        {
+            room.photo = GameManager.Instance().GetCachedTexture(filename);
+            SetPhoto(room.roomID);
+        }
         else
         {
             yield return StartCoroutine(Utility.DownloadTexture(Utility.web_url + $"/images/{filename}", (response) =>
             {
                 room.photo = response;
+                SetPhoto(room.roomID);
                 GameManager.Instance().AddCachedTexture(filename, response);
             }));
         }

@@ -17,6 +17,7 @@ public class PreviewImage : MonoBehaviour
     private int _index;
     private RectTransform _rectTransform;
     private Image _image;
+    private string _filename;
     [SerializeField] private Sprite _targetSprite;
     [SerializeField] private TMP_Text imageName;
     
@@ -47,6 +48,7 @@ public class PreviewImage : MonoBehaviour
     {
         imageName.text = fileName;
         _index = index;
+        _filename = fileName;
 
         if (_gameManager.SpriteIsCached(fileName))
         {
@@ -83,5 +85,11 @@ public class PreviewImage : MonoBehaviour
     public void Delete()
     {
         _imageLoader.DeleteEntry(_index);
+    }
+
+    public void SelectImage()
+    {
+        StartCoroutine(EditorManager.Instance().photoChanger.DownloadPhoto(_filename, EditorManager.Instance().GetActiveRoom()));
+        EditorManager.Instance().imageSelector.SetActive(false);
     }
 }
