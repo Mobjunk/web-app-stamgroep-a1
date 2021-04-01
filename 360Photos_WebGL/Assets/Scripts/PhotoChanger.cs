@@ -21,34 +21,16 @@ public class PhotoChanger : MonoBehaviour
         else RenderSettings.skybox.SetTexture("_MainTex", emptyTexture);
     }
 
-    //public void Start()
-    //{
-    //    for (int i = 0; i < areaParent.transform.childCount; i++)
-    //    {
-    //        if (i == 0)
-    //        {
-    //            areaParent.transform.GetChild(i).gameObject.SetActive(true);
-    //        }
-    //        else
-    //        {
-    //            areaParent.transform.GetChild(i).gameObject.SetActive(false);
-    //        }
-    //    }
-    //    RenderSettings.skybox.SetTexture("_MainTex", photos[0]);
-    //}
-
-    //public void ChangePhoto(bool isPositive)
-    //{
-    //    areaParent.transform.GetChild(currentPhoto).gameObject.SetActive(false);
-    //    if (isPositive && currentPhoto < photos.Count -1)
-    //    {
-    //        currentPhoto++;
-    //    }
-    //    else if(!isPositive && currentPhoto > 0)
-    //    {
-    //        currentPhoto--;   
-    //    }
-    //    areaParent.transform.GetChild(currentPhoto).gameObject.SetActive(true);
-    //    RenderSettings.skybox.SetTexture("_MainTex", photos[currentPhoto]);
-    //}
+    public IEnumerator DownloadPhoto(string filename, Room room)
+    {
+        if (GameManager.Instance().TextureIsCached(filename)) room.photo = GameManager.Instance().GetCachedTexture(filename);
+        else
+        {
+            yield return StartCoroutine(Utility.DownloadTexture(Utility.web_url + $"/images/{filename}", (response) =>
+            {
+                room.photo = response;
+                GameManager.Instance().AddCachedTexture(filename, response);
+            }));
+        }
+    }
 }

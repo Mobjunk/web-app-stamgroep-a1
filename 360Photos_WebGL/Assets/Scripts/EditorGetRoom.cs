@@ -30,12 +30,15 @@ public class EditorGetRoom : WebRequestManager
         {
             if (data[2] != "")
             {
-                Debug.LogError("Downloading Photo");
-                yield return StartCoroutine(Utility.DownloadTexture(Utility.web_url + $"/images/{data[2]}", (response) =>
+                if (GameManager.Instance().TextureIsCached(data[2])) photo = GameManager.Instance().GetCachedTexture(data[2]);
+                else
                 {
-                    Debug.LogError("Photo downloaded " + response);
-                    photo = response;
-                }));
+                    yield return StartCoroutine(Utility.DownloadTexture(Utility.web_url + $"/images/{data[2]}", (response) =>
+                    {
+                        photo = response;
+                        GameManager.Instance().AddCachedTexture(data[2], response);
+                    }));
+                }
             }
         }
 

@@ -10,6 +10,7 @@ public class GameManager : Singleton<GameManager>
     /// A list of the already downloaded sprites from the web server
     /// </summary>
     public List<CachedSprite> cachedSprites = new List<CachedSprite>();
+    public List<CachedTexture> cachedTextures = new List<CachedTexture>();
 
     /// <summary>
     /// Handles adding a sprite to the cache
@@ -41,7 +42,38 @@ public class GameManager : Singleton<GameManager>
     {
         return (from cachedSprite in cachedSprites where cachedSprite != null && cachedSprite.fileName.Equals(fileName) select cachedSprite.sprite).FirstOrDefault();
     }
-    
+
+    /// <summary>
+    /// Handles adding a sprite to the cache
+    /// </summary>
+    /// <param name="fileName">The file name of the sprite</param>
+    /// <param name="sprite">The sprite</param>
+    public void AddCachedTexture(string fileName, Texture texture)
+    {
+        Debug.Log($"Added {fileName} to the cached files...");
+        cachedTextures.Add(new CachedTexture(fileName, texture));
+    }
+
+    /// <summary>
+    /// Handles checking if the sprite is already cached
+    /// </summary>
+    /// <param name="fileName">The name of the file</param>
+    /// <returns></returns>
+    public bool TextureIsCached(string fileName)
+    {
+        return cachedTextures.Any(cachedTextures => cachedTextures.fileName.Equals(fileName));
+    }
+
+    /// <summary>
+    /// Handles getting the sprite for a  file name
+    /// </summary>
+    /// <param name="fileName">The name of the file</param>
+    /// <returns></returns>
+    public Texture GetCachedTexture(string fileName)
+    {
+        return (from cachedTexture in cachedTextures where cachedTexture != null && cachedTexture.fileName.Equals(fileName) select cachedTexture.texture).FirstOrDefault();
+    }
+
     /// <summary>
     /// The current user that is logged in
     /// </summary>

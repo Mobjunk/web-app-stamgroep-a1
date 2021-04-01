@@ -43,6 +43,7 @@ public static class Utility
                 if (www.isDone)
                 {
                     var texture = DownloadHandlerTexture.GetContent(www);
+                    GameManager.Instance().AddCachedTexture(url.Replace(Utility.web_url + $"/images/", ""), texture);
                     var rect = new Rect(0, 0, texture.width, texture.height);
                     var sprite = Sprite.Create(texture,rect,new Vector2(texture.width / 2, texture.height / 2));
                     callback(sprite);

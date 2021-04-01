@@ -19,8 +19,8 @@ public class ButtonCreator : MonoBehaviour
     public int currentSelected = 0;
     public int currentPhoto;
     
-    GameManager gameManager;
-    PhotoChanger photoChanger;
+    //GameManager gameManager;
+    //PhotoChanger photoChanger;
     GameObject previewButton = null;
 
     void Start()
@@ -33,7 +33,7 @@ public class ButtonCreator : MonoBehaviour
         }
 
         selector = GameObject.Find("ButtonSelector").GetComponent<Dropdown>();
-        photoChanger = GameObject.FindObjectOfType<PhotoChanger>().GetComponent<PhotoChanger>();
+        //photoChanger = GameObject.FindObjectOfType<PhotoChanger>().GetComponent<PhotoChanger>();
         //photos = photoChanger.photos;
         GameObject.FindObjectOfType<RaycastCheck>().GetComponent<RaycastCheck>().isEditor = isEditor;
         //areaParent = photoChanger.areaParent.transform;
