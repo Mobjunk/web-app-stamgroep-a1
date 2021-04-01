@@ -69,7 +69,7 @@ public class ButtonCreator : MonoBehaviour
             GameObject newButton = Instantiate(buttons[selector.value - 1], FindCurrentArea().transform);
             newButton.transform.position = mainCamera.transform.rotation * new Vector3(0, 0, createDistance + mainCamera.transform.position.z);
             newButton.transform.LookAt(mainCamera.transform);
-            //EditorManager.Instance().AddButton(newButton, )
+            EditorManager.Instance().AddButton(newButton, EditorManager.Instance().activeRoom);
         }
     }
 
@@ -155,8 +155,5 @@ public class ButtonCreator : MonoBehaviour
     {
         Destroy(GameObject.FindObjectOfType<RaycastCheck>().GetComponent<RaycastCheck>().selectedButton);
     }
-    //kunnen deselecteren(done)
-    //delete button alleen laten verschijnen als je ook op een item klikt(done)
-    //maar 1 item kunnen selecteren(done)
-    //zorg dat je op buttons kunt klikken zonder dat die de selection uitzet(werkt op magische wijze wel weer)
+    //knop plaats moet in button lijst plaatsen die in room dictionary staat 
 }
