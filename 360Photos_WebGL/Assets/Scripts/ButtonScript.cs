@@ -2,46 +2,64 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonScript : MonoBehaviour
+public abstract class ButtonScript : MonoBehaviour
 {
-    private Camera mainCamera;
-    PhotoChanger photoChanger;
+    //private Camera mainCamera;
+    //PhotoChanger photoChanger;
 
-    public enum ButtonTypes
-    {
-        MoveToNextArea,
-        MoveToPreviousArea,
-        ShowInfo,
-        ShowTest    
-    }
-    public ButtonTypes currentType = ButtonTypes.MoveToNextArea;
+    //public enum ButtonTypes
+    //{
+    //    MoveToNextArea,
+    //    MoveToPreviousArea,
+    //    ShowInfo,
+    //    ShowTest    
+    //}
+    //public ButtonTypes currentType = ButtonTypes.MoveToNextArea;
 
-    private void Start()
+    //private void Start()
+    //{
+    //   photoChanger = GameObject.FindObjectOfType<PhotoChanger>();
+    //   RaycastCheck.current.interactionTriggered += HasInteracted;
+    //}
+
+    //private void HasInteracted(string name )
+    //{
+    //    if (this.transform.name == name)
+    //    {
+    //        print(photoChanger);
+    //        switch (currentType)
+    //        {
+    //            case ButtonTypes.MoveToNextArea:
+    //                //photoChanger.ChangePhoto(true);
+    //                break;
+    //            case ButtonTypes.MoveToPreviousArea:
+    //                //photoChanger.ChangePhoto(false);
+    //                break;
+    //            case ButtonTypes.ShowInfo:
+    //                break;
+    //            case ButtonTypes.ShowTest:
+    //                break;
+    //            default:
+    //                break;
+    //        }
+    //    }
+    //}
+
+
+
+    //abstract maakt de functie een verplichting in elke inherit van dit script maar wordt niet in de parent gemaakt
+    //public abstract void OnClick();
+
+    //de originele virtual is een basis die wordt uitgevoerd die in je in childs kunt aanpassen
+
+    public virtual void OnClick()
     {
-       photoChanger = GameObject.FindObjectOfType<PhotoChanger>();
-       RaycastCheck.current.interactionTriggered += HasInteracted;
+        Debug.Log("test");
+        GetComponent<MeshRenderer>().material.color = Color.blue;
+        
+        
+        //basis voor pop up en in child modifyen
     }
 
-    private void HasInteracted(string name )
-    {
-        if (this.transform.name == name)
-        {
-            print(photoChanger);
-            switch (currentType)
-            {
-                case ButtonTypes.MoveToNextArea:
-                    //photoChanger.ChangePhoto(true);
-                    break;
-                case ButtonTypes.MoveToPreviousArea:
-                    //photoChanger.ChangePhoto(false);
-                    break;
-                case ButtonTypes.ShowInfo:
-                    break;
-                case ButtonTypes.ShowTest:
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
+
 }

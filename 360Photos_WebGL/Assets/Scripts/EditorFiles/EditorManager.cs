@@ -34,4 +34,17 @@ public class EditorManager : Singleton<EditorManager>
     {
         return rooms[activeRoom];
     }
+
+    public void RemoveButton(GameObject gameobject, string room)
+    {
+        for (int i = 0; i < rooms[room].buttons.Count; i++)
+        {
+            if (rooms[room].buttons[i].gameobject == gameobject)
+            {
+                rooms[room].buttons.RemoveAt(i);
+                return;
+            }
+        }
+        
+    }
 }

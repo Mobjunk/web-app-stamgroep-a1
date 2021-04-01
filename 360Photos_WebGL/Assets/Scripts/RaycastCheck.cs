@@ -36,13 +36,13 @@ public class RaycastCheck : MonoBehaviour
                 
                 Debug.DrawRay(ray.origin, (mainCamera.transform.rotation * Vector3.forward) * hit.distance, Color.white);
 
-                if (hit.transform.GetComponent<ButtonScript>() != null && !hit.transform.CompareTag("Preview") && ! isEditor)
+                if (hit.transform.TryGetComponent<ButtonScript>(out ButtonScript buttonScript))
                 {
-                    if (interactionTriggered != null)
-                    {
-                        interactionTriggered(hit.transform.name);
-                        
-                    }
+                    Debug.Log("komt hier wel");
+                    selectedButton = hit.transform.gameObject;
+                    deleteButton.gameObject.SetActive(true);
+                    //de delete button moet in de pop up komen
+                    buttonScript.OnClick();
                 }
                 else if (hit.transform.GetComponent<ButtonScript>() != null && !hit.transform.CompareTag("Preview") && isEditor)
                 {
@@ -52,10 +52,7 @@ public class RaycastCheck : MonoBehaviour
                         selectedButton.GetComponent<MeshRenderer>().material.color = Color.white;
                         print("make white");
                     }
-                    selectedButton = hit.transform.gameObject;
-                    selectedButton.GetComponent<MeshRenderer>().material.color = Color.blue;
-                    print("make blue");
-                    deleteButton.gameObject.SetActive(true);
+                    
                 }
             }
             else

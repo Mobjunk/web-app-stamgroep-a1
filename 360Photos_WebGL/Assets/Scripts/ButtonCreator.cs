@@ -18,13 +18,16 @@ public class ButtonCreator : MonoBehaviour
     //nummer van area die aanstaat
     public int currentSelected = 0;
     public int currentPhoto;
-    
+    public RaycastCheck rayCastCheck;
+
+
     //GameManager gameManager;
     //PhotoChanger photoChanger;
     GameObject previewButton = null;
 
     void Start()
     {
+        rayCastCheck = FindObjectOfType<RaycastCheck>();
         editUi = GameObject.Find("Canvas").GetComponent<Canvas>();
 
         if (isEditor == false)
@@ -66,7 +69,7 @@ public class ButtonCreator : MonoBehaviour
     {
         if (selector.value > 0 )
         {
-            GameObject newButton = Instantiate(buttons[selector.value - 1], FindCurrentArea().transform);
+            GameObject newButton = Instantiate(buttons[selector.value - 1], EditorManager.Instance().GetActiveRoom().area.transform);
             newButton.transform.position = mainCamera.transform.rotation * new Vector3(0, 0, createDistance + mainCamera.transform.position.z);
             newButton.transform.LookAt(mainCamera.transform);
             EditorManager.Instance().AddButton(newButton, EditorManager.Instance().activeRoom);
@@ -94,7 +97,7 @@ public class ButtonCreator : MonoBehaviour
             Destroy(previewButton);
         }
     }
-
+    /*
     public void CreateNewArea()
     {
             GameObject newArea = Instantiate(new GameObject(), areaParent);
@@ -150,10 +153,12 @@ public class ButtonCreator : MonoBehaviour
         }
         return null;
     }
-
+    */
     public void DeleteButton()
     {
-        Destroy(GameObject.FindObjectOfType<RaycastCheck>().GetComponent<RaycastCheck>().selectedButton);
+        GameObject destroyingButton = rayCastCheck.selectedButton;
+        EditorManager.Instance().RemoveButton(destroyingButton, EditorManager.Instance().activeRoom);
+        Destroy(destroyingButton);
     }
-    //knop plaats moet in button lijst plaatsen die in room dictionary staat 
+    // systeem waarbij op de knop drukken een pop up komt met dropdown waarmee je de pijl kunt linken aan een room en de optie om te travelen en deleten
 }
