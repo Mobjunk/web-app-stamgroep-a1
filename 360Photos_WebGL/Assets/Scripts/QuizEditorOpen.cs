@@ -5,6 +5,10 @@ using UnityEngine;
 public class QuizEditorOpen : WebRequestManager
 {
     public static string worldID;
+    public static string quizID;
+    public static string quizAcces;
+    public static string quizName;
+    public static string quizOwner;
 
     public override void FinishedResponse()
     {
@@ -20,6 +24,11 @@ public class QuizEditorOpen : WebRequestManager
 
     public void OpenEditor(string quizID, string quizName, string quizOwner, string quizAcces, string worldID)
     {
+        QuizEditorOpen.quizID = quizID;
+        QuizEditorOpen.quizAcces = quizAcces;
+        QuizEditorOpen.quizName = quizName;
+        QuizEditorOpen.quizOwner = quizOwner;
+
         if (worldID.Trim() == "")
         {
             WWWForm form = new WWWForm();
