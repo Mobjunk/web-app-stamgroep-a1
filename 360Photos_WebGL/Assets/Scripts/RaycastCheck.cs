@@ -40,7 +40,7 @@ public class RaycastCheck : MonoBehaviour
                 {
                     Debug.Log("komt hier wel");
                     selectedButton = hit.transform.gameObject;
-                    deleteButton.gameObject.SetActive(true);
+                    //deleteButton.gameObject.SetActive(true);
                     //de delete button moet in de pop up komen
                     buttonScript.OnClick();
                 }

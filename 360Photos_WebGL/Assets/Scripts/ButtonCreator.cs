@@ -41,28 +41,28 @@ public class ButtonCreator : MonoBehaviour
         GameObject.FindObjectOfType<RaycastCheck>().GetComponent<RaycastCheck>().isEditor = isEditor;
         //areaParent = photoChanger.areaParent.transform;
 
-        if ((areaParent = GameObject.FindGameObjectWithTag("AreaParent").transform) == null)
-        {
-            currentPhoto = 1;
-            GameObject newAreaParent = Instantiate(new GameObject());
-            newAreaParent.transform.position = Vector3.zero;
-            newAreaParent.transform.tag = "AreaParent";
-            newAreaParent.transform.name = "Areas";
-            allAreas.Add(newAreaParent);
-            currentArea = allAreas[0].transform;
-        }
-        else
-        {
-            for (int i = 0; i < areaParent.childCount; i++)
-            {
-                allAreas.Add(areaParent.GetChild(i).gameObject);
-                if (areaParent.GetChild(i).gameObject.activeInHierarchy)
-                {
-                    currentArea = areaParent.GetChild(i);
-                    currentPhoto = i;
-                }
-            }
-        }
+        //if ((areaParent = GameObject.FindGameObjectWithTag("AreaParent").transform) == null)
+        //{
+        //    currentPhoto = 1;
+        //    GameObject newAreaParent = Instantiate(new GameObject());
+        //    newAreaParent.transform.position = Vector3.zero;
+        //    newAreaParent.transform.tag = "AreaParent";
+        //    newAreaParent.transform.name = "Areas";
+        //    allAreas.Add(newAreaParent);
+        //    currentArea = allAreas[0].transform;
+        //}
+        //else
+        //{
+        //    for (int i = 0; i < areaParent.childCount; i++)
+        //    {
+        //        allAreas.Add(areaParent.GetChild(i).gameObject);
+        //        if (areaParent.GetChild(i).gameObject.activeInHierarchy)
+        //        {
+        //            currentArea = areaParent.GetChild(i);
+        //            currentPhoto = i;
+        //        }
+        //    }
+        //}
     }
 
     public void CreateObject()
@@ -72,7 +72,9 @@ public class ButtonCreator : MonoBehaviour
             GameObject newButton = Instantiate(buttons[selector.value - 1], EditorManager.Instance().GetActiveRoom().area.transform);
             newButton.transform.position = mainCamera.transform.rotation * new Vector3(0, 0, createDistance + mainCamera.transform.position.z);
             newButton.transform.LookAt(mainCamera.transform);
-            EditorManager.Instance().AddButton(newButton, EditorManager.Instance().activeRoom);
+            ButtonScript buttonScript = newButton.GetComponent<ButtonScript>();
+            ButtonSave buttonSave = EditorManager.Instance().AddButton(newButton, EditorManager.Instance().activeRoom);
+            buttonScript.SetUp(buttonSave);
         }
     }
 
@@ -158,6 +160,7 @@ public class ButtonCreator : MonoBehaviour
     {
         GameObject destroyingButton = rayCastCheck.selectedButton;
         EditorManager.Instance().RemoveButton(destroyingButton, EditorManager.Instance().activeRoom);
+        EditorManager.Instance().arrowPopUp.SetActive(false);
         Destroy(destroyingButton);
     }
     // systeem waarbij op de knop drukken een pop up komt met dropdown waarmee je de pijl kunt linken aan een room en de optie om te travelen en deleten

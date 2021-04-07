@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class ButtonScript : MonoBehaviour
 {
+    public ButtonSave buttonSave;
+
     //private Camera mainCamera;
     //PhotoChanger photoChanger;
 
@@ -61,5 +63,9 @@ public abstract class ButtonScript : MonoBehaviour
         //basis voor pop up en in child modifyen
     }
 
+    public virtual void SetUp(ButtonSave buttonSave)
+    {
+        this.buttonSave = buttonSave;
+    }
 
 }
