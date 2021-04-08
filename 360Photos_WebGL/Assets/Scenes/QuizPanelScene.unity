@@ -2865,6 +2865,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1410838909}
   - component: {fileID: 1410838910}
+  - component: {fileID: 1410838911}
   m_Layer: 5
   m_Name: AddPopUp
   m_TagString: Untagged
@@ -2919,6 +2920,21 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1410838911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410838908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36c7a66e0936d3e4ba00eda089d8dd22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectables:
+  - {fileID: 1465473677}
+  switchKey: 9
 --- !u!1 &1439348621
 GameObject:
   m_ObjectHideFlags: 0
