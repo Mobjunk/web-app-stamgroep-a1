@@ -3300,9 +3300,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1117251307}
-        m_TargetAssemblyTypeName: ButtonCreator, Assembly-CSharp
-        m_MethodName: CreateNewArea
+      - m_Target: {fileID: 1117251317}
+        m_TargetAssemblyTypeName: CreateAreaScript, Assembly-CSharp
+        m_MethodName: CreateArea
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4855,6 +4855,8 @@ GameObject:
   - component: {fileID: 1117251316}
   - component: {fileID: 1117251315}
   - component: {fileID: 1117251314}
+  - component: {fileID: 1117251318}
+  - component: {fileID: 1117251317}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -5039,6 +5041,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webResponse: 
   webError: 
+--- !u!114 &1117251317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117251304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 093d83e16269e114d9832f2641e544de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1117251318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117251304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40cc46cb94bb0a047aa15606db1d07d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  webResponse: 
+  webError: 
+  buttonsID: []
 --- !u!1 &1123396308
 GameObject:
   m_ObjectHideFlags: 0
@@ -6879,7 +6908,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -47.5, y: 0}
+  m_AnchoredPosition: {x: -47.50006, y: 0}
   m_SizeDelta: {x: -105, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1722660572

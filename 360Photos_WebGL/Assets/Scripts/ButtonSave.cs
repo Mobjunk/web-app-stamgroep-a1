@@ -10,9 +10,10 @@ public class ButtonSave
     public string[] options;
     public string answer;
     public string travelRoom;
+    public string id;
 
                                              //room id    vraag         mogelijke antwoorden  correct antwoord
-    public ButtonSave(GameObject gameobject, string room, string question, string[] options, string answer, string travelRoom)
+    public ButtonSave(string id, GameObject gameobject, string room, string question, string[] options, string answer, string travelRoom)
     {
         this.gameobject = gameobject;
         this.room = room;
@@ -20,6 +21,7 @@ public class ButtonSave
         this.options = options;
         this.answer = answer;
         this.travelRoom = travelRoom;
+        this.id = id;
 
         //alle gameobjects die je maakt moeten opgeslagen worden
         //key wordt welke room je zit

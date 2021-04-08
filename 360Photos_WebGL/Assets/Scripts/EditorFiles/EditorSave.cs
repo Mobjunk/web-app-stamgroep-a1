@@ -4,11 +4,13 @@ using UnityEngine;
 
 [RequireComponent(typeof(EditorSaveRoom))]
 [RequireComponent(typeof(EditorSaveWorld))]
+[RequireComponent(typeof(EditorSaveButton))]
 public class EditorSave : MonoBehaviour
 {
     [SerializeField] private GameObject saveScreen;
     private EditorSaveRoom editorSaveRoom;
     private EditorSaveWorld editorSaveWorld;
+    private EditorSaveButton editorSaveButton;
 
     public void SaveWorld()
     {
@@ -20,10 +22,20 @@ public class EditorSave : MonoBehaviour
         saveScreen.SetActive(true);
         editorSaveRoom = GetComponent<EditorSaveRoom>();
         editorSaveWorld = GetComponent<EditorSaveWorld>();
+        editorSaveButton = GetComponent<EditorSaveButton>();
 
         editorSaveRoom.roomsID.Clear();
         foreach (var room in EditorManager.Instance().rooms)
         {
+            foreach (var button in room.Value.buttons)
+            {
+                WWWForm form3 = new WWWForm();
+                form3.AddField("id", room.Key);
+
+                //if (button..StartsWith("0")) StartCoroutine(editorSaveRoom.PostRequest($"{Utility.action_url}create360Room", form3));
+                //else StartCoroutine(editorSaveRoom.PostRequest($"{Utility.action_url}update360Room", form3));
+            }
+
             WWWForm form = new WWWForm();
             form.AddField("id", room.Key);
             form.AddField("worldID", QuizEditorOpen.worldID);

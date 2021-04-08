@@ -15,6 +15,8 @@ public class EditorManager : Singleton<EditorManager>
     [HideInInspector] public Dictionary<string, Room> rooms = new Dictionary<string, Room>();
     [HideInInspector] public string activeRoom;
 
+    private int lastButtonID = 1;
+
     private void Awake()
     {
         areaChanger = GetComponent<AreaChanger>();
@@ -28,7 +30,8 @@ public class EditorManager : Singleton<EditorManager>
 
     public ButtonSave AddButton(GameObject gameobject, string room)
     {
-        ButtonSave buttonSave = new ButtonSave(gameobject, room, "", null, "", "");
+        ButtonSave buttonSave = new ButtonSave("0" + lastButtonID, gameobject, room, "", null, "", "");
+        lastButtonID++;
         rooms[room].buttons.Add(buttonSave);
         return buttonSave;
 
