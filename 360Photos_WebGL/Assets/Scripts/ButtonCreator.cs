@@ -161,6 +161,7 @@ public class ButtonCreator : MonoBehaviour
         GameObject destroyingButton = rayCastCheck.selectedButton;
         EditorManager.Instance().RemoveButton(destroyingButton, EditorManager.Instance().activeRoom);
         EditorManager.Instance().arrowPopUp.SetActive(false);
+        EditorManager.Instance().infoPopUp.SetActive(false);
         Destroy(destroyingButton);
     }
     // systeem waarbij op de knop drukken een pop up komt met dropdown waarmee je de pijl kunt linken aan een room en de optie om te travelen en deleten

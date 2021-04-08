@@ -12,6 +12,7 @@ public class EditorManager : Singleton<EditorManager>
     public Transform areaParent;
     public GameObject imageSelector;
     public GameObject arrowPopUp;
+    public GameObject infoPopUp;
     //            room id         value              
     [HideInInspector] public Dictionary<string, Room> rooms = new Dictionary<string, Room>();
     [HideInInspector] public string activeRoom;
