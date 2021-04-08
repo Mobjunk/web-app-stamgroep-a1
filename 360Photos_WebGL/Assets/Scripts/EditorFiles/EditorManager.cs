@@ -39,6 +39,14 @@ public class EditorManager : Singleton<EditorManager>
 
     }
 
+    public ButtonSave AddExitingButton(string id, GameObject gameobject, string room, string question, string[] options, string answer, string travelRoom, string infoText)
+    {
+        ButtonSave buttonSave = new ButtonSave(id, gameobject, room, question, options, answer, travelRoom, infoText);
+        rooms[room].buttons.Add(buttonSave.id, buttonSave);
+        return buttonSave;
+
+    }
+
     public Room GetActiveRoom()
     {
         return rooms[activeRoom];

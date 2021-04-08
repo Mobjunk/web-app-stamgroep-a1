@@ -25,6 +25,7 @@ public class EditorSave : MonoBehaviour
         editorSaveButton = GetComponent<EditorSaveButton>();
 
         editorSaveRoom.roomsID.Clear();
+        editorSaveButton.travelbuttons.Clear();
         foreach (var room in EditorManager.Instance().rooms)
         {
             editorSaveButton.currentRoom = room.Key;
@@ -57,7 +58,7 @@ public class EditorSave : MonoBehaviour
             {
                 buttonsID += buttonID.Value + ":";
             }
-            if (buttonsID.Length > 2) buttonsID = buttonsID.Remove(buttonsID.Length - 2);
+            if (buttonsID.Length > 1) buttonsID = buttonsID.Remove(buttonsID.Length - 1, 1);
 
             form.AddField("buttonsID", buttonsID);
             if(room.Key.StartsWith("0")) StartCoroutine(editorSaveRoom.PostRequest($"{Utility.action_url}create360Room", form));
@@ -67,6 +68,22 @@ public class EditorSave : MonoBehaviour
         while (editorSaveRoom.roomsID.Count < EditorManager.Instance().rooms.Count)
         {
             yield return null;
+        }
+
+        foreach (var travelbutton in editorSaveButton.travelbuttons)
+        {
+            editorSaveButton.currentRoom = travelbutton.room;
+            editorSaveButton.buttonsID.Clear();
+            WWWForm form3 = new WWWForm();
+            form3.AddField("id", travelbutton.id);
+            travelbutton.travelRoom = editorSaveRoom.roomsID[travelbutton.travelRoom];
+            form3.AddField("navRoom", travelbutton.travelRoom);
+            Vector3 buttonPosition = travelbutton.gameobject.transform.position;
+            string stringPosition = buttonPosition.x + ":" + buttonPosition.y + ":" + buttonPosition.z;
+            form3.AddField("position", stringPosition);
+            form3.AddField("text", travelbutton.infoText);
+            if (travelbutton.id.StartsWith("0")) StartCoroutine(editorSaveButton.PostRequest($"{Utility.action_url}create360Button", form3));
+            else StartCoroutine(editorSaveButton.PostRequest($"{Utility.action_url}update360Button", form3));
         }
 
         WWWForm form2 = new WWWForm();

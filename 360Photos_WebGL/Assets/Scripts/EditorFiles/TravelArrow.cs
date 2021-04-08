@@ -35,6 +35,14 @@ public class TravelArrow : ButtonScript
             dropDownOptions.Add(new Dropdown.OptionData(key));
         }
         arrowLocation.options = dropDownOptions;
+        foreach (var option in arrowLocation.options)
+        {
+            if (option.text == buttonSave.travelRoom)
+            {
+                arrowLocation.value = arrowLocation.options.IndexOf(option);
+                break;
+            }
+        }
         arrowLocation.onValueChanged.AddListener(SetTravelRoom);
         Button travelButton = EditorManager.Instance().arrowPopUp.transform.Find("TravelButton").GetComponent<Button>();
         travelButton.onClick.RemoveAllListeners();

@@ -2,8 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(EditorGetButton))]
 public class EditorGetRoom : WebRequestManager
 {
+    EditorGetButton editorGetButton;
+
+    private void Start()
+    {
+        editorGetButton = GetComponent<EditorGetButton>();
+    }
+
     public override void FinishedResponse()
     {
         if (webResponse.Contains("room:"))
@@ -47,5 +55,13 @@ public class EditorGetRoom : WebRequestManager
 
         newArea.SetActive(false);
         EditorManager.Instance().AddRoom(roomID, photo, photoName, newArea, new Dictionary<string, ButtonSave>());
+
+        foreach (var buttonID in data[3].Split(':'))
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("id", buttonID);
+            form.AddField("roomID", roomID);
+            StartCoroutine(editorGetButton.PostRequest($"{Utility.action_url}get360Button", form));
+        }
     }
 }

@@ -19,11 +19,17 @@ public class EditorSaveRoom : WebRequestManager
             {
                 string[] data = webResponse.Replace("Succesfully created room with id: ", "").Split(',');
                 roomsID.Add(data[1], data[0]);
+                if (EditorManager.Instance().activeRoom == data[1]) EditorManager.Instance().activeRoom = data[0];
                 Room room = EditorManager.Instance().rooms[data[1]];
                 room.roomID = data[0];
                 room.area.name = data[0];
                 EditorManager.Instance().rooms.Add(data[0], room);
                 EditorManager.Instance().rooms.Remove(data[1]);
+
+                foreach (var button in room.buttons)
+                {
+                    button.Value.room = room.roomID;
+                }
             }
         }
         else

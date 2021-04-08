@@ -9,7 +9,7 @@ public class ButtonCreator : MonoBehaviour
     List<GameObject> allAreas = new List<GameObject>();
     public List<Texture> photos;
     private Canvas editUi;
-    private Dropdown selector;
+    public Dropdown selector;
     public GameObject[] buttons;
     public Transform areaParent;
     public Transform currentArea;
