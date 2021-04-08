@@ -36,7 +36,7 @@ public class RaycastCheck : MonoBehaviour
                 
                 Debug.DrawRay(ray.origin, (mainCamera.transform.rotation * Vector3.forward) * hit.distance, Color.white);
 
-                if (hit.transform.TryGetComponent<ButtonScript>(out ButtonScript buttonScript))
+                if (hit.transform.TryGetComponent<ButtonScript>(out ButtonScript buttonScript) && !hit.transform.CompareTag("Preview"))
                 {
                     Debug.Log("komt hier wel");
                     selectedButton = hit.transform.gameObject;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Room
 {
-    public Room(string roomID, Texture photo, string photoName, GameObject area, List<ButtonSave> buttons)
+    public Room(string roomID, Texture photo, string photoName, GameObject area, Dictionary<string, ButtonSave> buttons)
     {
         this.roomID = roomID;
         this.photo = photo;
@@ -17,5 +17,5 @@ public class Room
     public Texture photo;
     public string photoName;
     public GameObject area;
-    public List<ButtonSave> buttons;
+    public Dictionary<string, ButtonSave> buttons;
 }

@@ -4,11 +4,13 @@ using UnityEngine;
 
 [RequireComponent(typeof(EditorSaveRoom))]
 [RequireComponent(typeof(EditorSaveWorld))]
+[RequireComponent(typeof(EditorSaveButton))]
 public class EditorSave : MonoBehaviour
 {
     [SerializeField] private GameObject saveScreen;
     private EditorSaveRoom editorSaveRoom;
     private EditorSaveWorld editorSaveWorld;
+    private EditorSaveButton editorSaveButton;
 
     public void SaveWorld()
     {
@@ -20,15 +22,44 @@ public class EditorSave : MonoBehaviour
         saveScreen.SetActive(true);
         editorSaveRoom = GetComponent<EditorSaveRoom>();
         editorSaveWorld = GetComponent<EditorSaveWorld>();
+        editorSaveButton = GetComponent<EditorSaveButton>();
 
         editorSaveRoom.roomsID.Clear();
         foreach (var room in EditorManager.Instance().rooms)
         {
+            editorSaveButton.currentRoom = room.Key;
+            editorSaveButton.buttonsID.Clear();
+
+            foreach (var button in room.Value.buttons)
+            {
+                WWWForm form3 = new WWWForm();
+                form3.AddField("id", button.Value.id);
+                form3.AddField("navRoom", button.Value.travelRoom);
+                Vector3 buttonPosition = button.Value.gameobject.transform.position;
+                string stringPosition = buttonPosition.x + ":" + buttonPosition.y + ":" + buttonPosition.z;
+                form3.AddField("position", stringPosition);
+                form3.AddField("text", button.Value.infoText);
+                if (button.Value.id.StartsWith("0")) StartCoroutine(editorSaveButton.PostRequest($"{Utility.action_url}create360Button", form3));
+                else StartCoroutine(editorSaveButton.PostRequest($"{Utility.action_url}update360Button", form3));
+            }
+
+            while (editorSaveButton.buttonsID.Count < EditorManager.Instance().rooms[room.Key].buttons.Count)
+            {
+                yield return null;
+            }
+
             WWWForm form = new WWWForm();
             form.AddField("id", room.Key);
             form.AddField("worldID", QuizEditorOpen.worldID);
             form.AddField("image", room.Value.photoName);
-            form.AddField("buttonsID", "");
+            string buttonsID = "";
+            foreach (var buttonID in editorSaveButton.buttonsID)
+            {
+                buttonsID += buttonID.Value + ":";
+            }
+            if (buttonsID.Length > 2) buttonsID = buttonsID.Remove(buttonsID.Length - 2);
+
+            form.AddField("buttonsID", buttonsID);
             if(room.Key.StartsWith("0")) StartCoroutine(editorSaveRoom.PostRequest($"{Utility.action_url}create360Room", form));
             else StartCoroutine(editorSaveRoom.PostRequest($"{Utility.action_url}update360Room", form));
         }
