@@ -19,7 +19,7 @@ public class CreateAreaScript : MonoBehaviour
         string photoName = "";
 
         newArea.SetActive(false);
-        EditorManager.Instance().AddRoom(roomID, photo, photoName, newArea, new List<ButtonSave>());
+        EditorManager.Instance().AddRoom(roomID, photo, photoName, newArea, new Dictionary<string, ButtonSave>());
         EditorManager.Instance().areaChanger.SetArea(roomID);
         EditorManager.Instance().imageSelector.SetActive(true);
     }
