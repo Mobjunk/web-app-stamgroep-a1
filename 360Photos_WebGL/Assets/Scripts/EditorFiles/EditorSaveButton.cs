@@ -13,12 +13,12 @@ public class EditorSaveButton : WebRequestManager
         {
             if (webResponse.Contains("updated"))
             {
-                string[] data = webResponse.Replace("Succesfully updated room with id: ", "").Split(',');
+                string[] data = webResponse.Replace("Succesfully updated button with id: ", "").Split(',');
                 buttonsID.Add(data[1], data[0]);
             }
             else if (webResponse.Contains("created"))
             {
-                string[] data = webResponse.Replace("Succesfully created room with id: ", "").Split(',');
+                string[] data = webResponse.Replace("Succesfully created button with id: ", "").Split(',');
                 buttonsID.Add(data[1], data[0]);
                 ButtonSave button = EditorManager.Instance().rooms[currentRoom].buttons[data[1]];
                 button.id = data[0];

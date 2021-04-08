@@ -39,8 +39,8 @@ public class EditorSave : MonoBehaviour
                 string stringPosition = buttonPosition.x + ":" + buttonPosition.y + ":" + buttonPosition.z;
                 form3.AddField("position", stringPosition);
                 form3.AddField("text", button.Value.infoText);
-                if (button.Value.id.StartsWith("0")) StartCoroutine(editorSaveRoom.PostRequest($"{Utility.action_url}create360Room", form3));
-                else StartCoroutine(editorSaveRoom.PostRequest($"{Utility.action_url}update360Room", form3));
+                if (button.Value.id.StartsWith("0")) StartCoroutine(editorSaveButton.PostRequest($"{Utility.action_url}create360Button", form3));
+                else StartCoroutine(editorSaveButton.PostRequest($"{Utility.action_url}update360Button", form3));
             }
 
             while (editorSaveButton.buttonsID.Count < EditorManager.Instance().rooms[room.Key].buttons.Count)
@@ -57,7 +57,7 @@ public class EditorSave : MonoBehaviour
             {
                 buttonsID += buttonID.Value + ":";
             }
-            if (buttonsID.Length > 2) buttonsID = buttonsID.Remove(buttonsID.Length - 1);
+            if (buttonsID.Length > 2) buttonsID = buttonsID.Remove(buttonsID.Length - 2);
 
             form.AddField("buttonsID", buttonsID);
             if(room.Key.StartsWith("0")) StartCoroutine(editorSaveRoom.PostRequest($"{Utility.action_url}create360Room", form));
