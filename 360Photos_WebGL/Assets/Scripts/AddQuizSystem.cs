@@ -31,7 +31,16 @@ public class AddQuizSystem : WebRequestManager
 
     public void CreateQuiz()
     {
-        if (QuizNameInput.text == "") return;
+        bool fieldEmpty = false;
+
+        if (QuizNameInput.text.Trim() == "")
+        {
+            QuizNameInput.placeholder.color = Color.red;
+            QuizNameInput.placeholder.GetComponent<Text>().text = "Dit veld is verplicht!";
+            fieldEmpty = true;
+        }
+
+        if (fieldEmpty == true) return;
 
         WWWForm form = new WWWForm();
         form.AddField("quizName", QuizNameInput.text);

@@ -126,4 +126,16 @@ public class UserList : WebRequestManager
             }
         }
     }
+
+    public void PageRight()
+    {
+        page++;
+        Debug.Log(page);
+    }
+
+    public void PageLeft()
+    {
+        page--;
+        Debug.Log(page);
+    }
 }
