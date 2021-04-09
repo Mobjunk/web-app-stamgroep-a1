@@ -26,7 +26,7 @@ public class TravelArrow : ButtonScript
         arrowLocation = EditorManager.Instance().arrowPopUp.transform.Find("ArrowLocations").GetComponent<Dropdown>();
         arrowLocation.onValueChanged.RemoveAllListeners();
         EditorManager.Instance().arrowPopUp.SetActive(true);
-        EditorManager.Instance().arrowPopUp.transform.Find("LocationText").GetComponent<Text>().text = "you are at room index: " + buttonSave.room;
+        EditorManager.Instance().arrowPopUp.transform.Find("LocationText").GetComponent<Text>().text = "Je bent bij ruimte nummer: " + buttonSave.room;
         arrowLocation.ClearOptions();
         List<Dropdown.OptionData> dropDownOptions = new List<Dropdown.OptionData>();
         foreach (var key in EditorManager.Instance().rooms.Keys)

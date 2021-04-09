@@ -62,7 +62,7 @@ public class ImageLoader : Singleton<ImageLoader>
         endingPoint = 5 * (pageId + 1);
         
         //Sets the title
-        title.text = $"Foto's - Page {pageId + 1} of {maxPages + 1}";
+        title.text = $"Foto's - Pagina {pageId + 1} of {maxPages + 1}";
 
         //Makes sure the end point never reaches above the max amount of images
         if (endingPoint > maxImages)
