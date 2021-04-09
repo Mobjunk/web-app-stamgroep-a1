@@ -40,7 +40,11 @@ public class EditorGetRoom : WebRequestManager
         {
             if (data[2] != "")
             {
-                if (GameManager.Instance().TextureIsCached(data[2])) photo = GameManager.Instance().GetCachedTexture(data[2]);
+                if (GameManager.Instance().TextureIsCached(data[2]))
+                {
+                    photo = GameManager.Instance().GetCachedTexture(data[2]);
+                    photoName = data[2];
+                }
                 else
                 {
                     yield return StartCoroutine(Utility.DownloadTexture(Utility.web_url + $"/images/{data[2]}", (response) =>
